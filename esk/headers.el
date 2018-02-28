@@ -116,6 +116,17 @@
   "## :Copyright: " "© " (format-time-string "%Y") " " (esk/project-copyright-holder) "\n"
   "##\n\n")
 
+(define-skeleton esk/file-header:jinja2
+  "Standard Jinja2 file header."
+  "Summary: "
+  "{# -*- coding: utf-8; mode: mhtml -*-\n"
+  "## :Project:   " (esk/project-name) " -- " str "\n"
+  "## :Created:   " (format-time-string "%c") "\n"
+  "## :Author:    " (user-full-name) " <" user-mail-address ">\n"
+  "## :License:   " (esk/project-license) "\n"
+  "## :Copyright: " "© " (format-time-string "%Y") " " (esk/project-copyright-holder) "\n"
+  "#}\n\n")
+
 (define-skeleton esk/file-header:sql
   "Standard SQL file header."
   "Summary: "
@@ -130,6 +141,7 @@
 (add-to-list 'auto-insert-alist '(("\\.css\\'" . "CSS header") . esk/file-header))
 (add-to-list 'auto-insert-alist '(("\\.js\\'" . "Javascript header") . esk/file-header))
 (add-to-list 'auto-insert-alist '(("\\.mako\\'" . "Mako header") . esk/file-header:mako))
+(add-to-list 'auto-insert-alist '(("\\.jinja2\\'" . "Jinja2 header") . esk/file-header:jinja2))
 (add-to-list 'auto-insert-alist '(("\\.org\\'" . "ORG header") . esk/file-header:org))
 (add-to-list 'auto-insert-alist '(("\\.pt\\'" . "ZPT header") . esk/file-header))
 (add-to-list 'auto-insert-alist '(("\\.py\\'" . "Python header") . esk/file-header))
