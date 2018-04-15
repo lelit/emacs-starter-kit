@@ -7,7 +7,8 @@
 ;(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
-(package-initialize)
+(when (< emacs-major-version 27)
+  (package-initialize))
 
 (defvar esk/packages
   (list
