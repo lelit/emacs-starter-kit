@@ -135,7 +135,9 @@
 
 (eval-after-load 'web-mode
   '(progn
-     (push '("jinja" . "\\.jinja2\\'") web-mode-engine-file-regexps)))
+     (push '("jinja" . "\\.jinja2\\'") web-mode-engine-file-regexps)
+     (setq web-mode-content-types-alist
+           '(("javascript" . ".*\\.js\\.jinja2\\'")))))
 
 ;; Default to unified diffs
 (csetq diff-switches "-u")
