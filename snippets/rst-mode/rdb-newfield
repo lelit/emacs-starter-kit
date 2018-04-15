@@ -1,8 +1,0 @@
-# name: Create a new Raccoon PostgreSQL table
-# key: rdb-newfield
-# expand-env: ((yas/indent-line nil))
-# --
-.. _${1:schema}.${2:tablename}.${3:field}:
-
-**$3**: :term:\`${4:$$(yas/choose-value '("bigint_t" "boolean_t" "date_t" "datetime_t" "flag_t" "gender_t" "integer_t" "ipaddress_t" "latlng_t" "longcode_t" "longstring_t" "measure_t" "money_t" "password_t" "percentage_t" "position_t" "script_t" "shortcode_t" "shortstring_t" "smallint_t" "text_t" "timestamp_t" "tinycode_t" "url_t" "username_t" "uuid_t"))} (dominio)\`
-  $0

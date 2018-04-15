@@ -1,8 +1,0 @@
-# name: Create a new PQG table index
-# key: pqg-newindex
-# expand-env: ((yas/indent-line nil))
-# --
-.. patchdb:script:: Indice per ${1:field} su ${2:schema}.${3:tablename}
-   :depends: Documenti
-
-   create $0index $3_by_$1 on $2.$3 ($1);

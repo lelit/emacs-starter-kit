@@ -1,14 +1,14 @@
 # -*- mode: snippet -*-
-# name: Create new FK for Ytefas
-# key: yte-fk
+# name: Create new FK
+# key: patchdb-fk
 # expand-env: ((yas-indent-line 'fixed))
 # --
-.. patchdb:script:: FK ${1:schemasrc}.${2:tablenamesrc}.${3:fieldnamesrc}➜${4:schemadst}.${5:tablenamedst}
+.. script:: FK ${1:schemasrc}.${2:tablenamesrc}.${3:fieldnamesrc}➜${4:schemadst}.${5:tablenamedst}
    :description: Foreign key di \`\`$1.$2.$3\`\`
                  verso \`\`$4.$5.${6:fieldnamedst}\`\`
-   :conditions: postgres
-   :depends: Tabella $1.$2,
-             Tabella $4.$5
+   :depends:
+      - Tabella $1.$2
+      - Tabella $4.$5
 
    ALTER TABLE $1.$2
      ADD CONSTRAINT fk_$1_$2_$3

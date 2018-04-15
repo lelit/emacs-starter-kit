@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Add new column to SA table definition
-# key: yte-column
+# key: patchdb-column
 # --
 sa.Column('${1:name}', meta.${2:domain},
           nullable=${3:$$(yas-choose-value '("False" "True"))},

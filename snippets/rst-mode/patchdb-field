@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Create new table field for Ytefas
-# key: yte-field
+# name: Create new table field
+# key: patchdb-field
 # expand-env: ((yas-indent-line 'fixed))
 # --
 .. _${1:schema}.${2:tablename}.${3:fieldname}:
