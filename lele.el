@@ -33,6 +33,15 @@
      (add-hook 'rst-mode-hook (lambda () (electric-indent-local-mode -1)))))
 
 
+;; org-mode
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-bullets-mode t)))
+(setq org-ellipsis "⤵")
+
+
 ;; projectile
 
 (eval-after-load 'projectile
