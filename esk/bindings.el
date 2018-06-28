@@ -34,6 +34,7 @@
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 (global-set-key (kbd "C-c R") #'esk/rename-current-buffer-file)
 (global-set-key (kbd "C-c D") #'esk/delete-current-buffer-file)
+(global-set-key (kbd "C-c w") #'esk/copy-current-buffer-file-path)
 
 ;; Window switching. (C-x o goes to the next window)
 (windmove-default-keybindings) ;; Shift+direction
