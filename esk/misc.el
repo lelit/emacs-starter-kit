@@ -30,6 +30,7 @@
 (csetq parens-require-spaces nil)
 (csetq scroll-preserve-screen-position t)
 (csetq shift-select-mode nil)
+(csetq sentence-end-double-space nil)
 (csetq transient-mark-mode t)
 (csetq truncate-partial-width-windows nil)
 (csetq uniquify-buffer-name-style 'forward)
