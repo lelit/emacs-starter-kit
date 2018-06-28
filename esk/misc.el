@@ -158,14 +158,16 @@
 ;; make emacs use the clipboard
 (csetq select-enable-clipboard t)
 
-(add-hook 'c-mode-hook #'esk/run-coding-hook)
 (add-hook 'c++-mode-hook #'esk/run-coding-hook)
+(add-hook 'c-mode-hook #'esk/run-coding-hook)
 (add-hook 'css-mode-hook #'esk/run-coding-hook)
 (add-hook 'dockerfile-mode-hook #'esk/run-coding-hook)
 (add-hook 'html-mode-hook #'esk/run-coding-hook)
 (add-hook 'json-mode-hook #'esk/run-coding-hook)
+(add-hook 'nxml-mode-hook #'esk/run-coding-hook)
 (add-hook 'rst-mode-hook #'esk/run-coding-hook)
 (add-hook 'sh-mode-hook #'esk/run-coding-hook)
 (add-hook 'sql-mode-hook #'esk/run-coding-hook)
+(add-hook 'sql-mode-hook #'sqlind-setup)
 (add-hook 'web-mode-hook #'esk/run-coding-hook)
 (add-hook 'yaml-mode-hook #'esk/run-coding-hook)
