@@ -171,3 +171,6 @@
 (add-hook 'sql-mode-hook #'sqlind-setup)
 (add-hook 'web-mode-hook #'esk/run-coding-hook)
 (add-hook 'yaml-mode-hook #'esk/run-coding-hook)
+
+;; avoid flood of pointless warnings
+(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
