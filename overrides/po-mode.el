@@ -1707,12 +1707,17 @@ If WRAP is not nil, the search may wrap around the buffer."
 
 ;; Untranslated entries.
 
+(defvar po-empty-msgstr-regexp
+  "^msgstr\\(\\[[0-9]\\]\\)?[ \t]*\"\"\n"
+  "Regexp matching a whole msgstr field, but only if active and empty.")
+
 (defvar po-after-entry-regexp
-  "\\(\\'\\|\\(#[ \t]*\\)?$\\)"
-  "Regexp which should be true after a full msgstr string matched.")
+  (concat "\\(" po-empty-msgstr-regexp "\\)?\\(\\'\\|\\(#[ \t]*\\)?$\\)")
+  "Regexp which should be true after a full msgstr string matched,
+that may be the first form of a plural entry.")
 
 (defvar po-untranslated-regexp
-  (concat "^msgstr\\(\\[[0-9]\\]\\)?[ \t]*\"\"\n" po-after-entry-regexp)
+  (concat po-empty-msgstr-regexp po-after-entry-regexp)
   "Regexp matching a whole msgstr field, but only if active and empty.")
 
 (defun po-next-untranslated-entry ()
