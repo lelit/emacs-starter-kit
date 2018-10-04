@@ -172,5 +172,9 @@
 (add-hook 'web-mode-hook #'esk/run-coding-hook)
 (add-hook 'yaml-mode-hook #'esk/run-coding-hook)
 
+(setq c-default-style '((c-mode . "stroustrup")
+                        (c++-mode . "stroustrup")
+                        (objc-mode . "stroustrup")))
+
 ;; avoid flood of pointless warnings
 (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
