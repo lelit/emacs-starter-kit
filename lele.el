@@ -184,8 +184,7 @@ start everything unconditionally."
  '(python-fill-docstring-style (quote pep-257-nn))
  '(projectile-mode-line-fn 'lele/projectile-mode-line)
  '(python-flymake-command
-   (quote
-    ("flake8" "--ignore=E121,E123,E126,E226,E24,E266,E704,E711,W503,W504" "-")))
+   '("flake8" "--max-line-length=95" "--ignore=E121,E123,E126,E226,E24,E266,E704,E711,W503,W504" "-"))
  '(python-flymake-command-output-pattern
    (list "^\\(?:.*\\.p[yj]\\|<?stdin>?\\):\\(?1:[0-9]+\\):\\(?:\\(?2:[0-9]+\\):\\)? \\(?3:.*\\)$" 1 2 nil 3))
  '(python-flymake-msg-alist
