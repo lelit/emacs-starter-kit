@@ -137,6 +137,8 @@
 (eval-after-load 'web-mode
   '(progn
      (push '("jinja" . "\\.jinja2\\'") web-mode-engine-file-regexps)
+     (push '("django" . "/templates/\\([^/]*/\\)?[^/]*\\.html\\'")
+           web-mode-engine-file-regexps)
      (setq web-mode-content-types-alist
            '(("javascript" . ".*\\.js\\.jinja2\\'")))))
 
