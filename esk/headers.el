@@ -58,6 +58,17 @@
   " * :Copyright: © " (format-time-string "%Y") " " (esk/project-copyright-holder) "\n"
   " " `(delete-horizontal-space) comment-end "\n\n")
 
+(define-skeleton esk/file-header:html
+  "Standard HTML file header."
+  "Summary: "
+  comment-start `(delete-horizontal-space) " -*- coding: utf-8 -*-\n"
+  "---- :Project:   " (esk/project-name) " -- " str "\n"
+  "---- :Created:   " (format-time-string "%c") "\n"
+  "---- :Author:    " (user-full-name) " <" user-mail-address ">\n"
+  "---- :License:   " (esk/project-license) "\n"
+  "---- :Copyright: © " (format-time-string "%Y") " " (esk/project-copyright-holder) "\n"
+  "-" `(delete-horizontal-space) comment-end "\n\n")
+
 (define-skeleton esk/file-header:org
   "Standard ORG file header."
   "Title: "
@@ -139,9 +150,10 @@
   comment-start `(delete-horizontal-space) comment-end "\n\n")
 
 (add-to-list 'auto-insert-alist '(("\\.css\\'" . "CSS header") . esk/file-header))
+(add-to-list 'auto-insert-alist '(("\\.html\\'" . "HTML header") . esk/file-header:html))
+(add-to-list 'auto-insert-alist '(("\\.jinja2\\'" . "Jinja2 header") . esk/file-header:jinja2))
 (add-to-list 'auto-insert-alist '(("\\.js\\'" . "Javascript header") . esk/file-header))
 (add-to-list 'auto-insert-alist '(("\\.mako\\'" . "Mako header") . esk/file-header:mako))
-(add-to-list 'auto-insert-alist '(("\\.jinja2\\'" . "Jinja2 header") . esk/file-header:jinja2))
 (add-to-list 'auto-insert-alist '(("\\.org\\'" . "ORG header") . esk/file-header:org))
 (add-to-list 'auto-insert-alist '(("\\.pt\\'" . "ZPT header") . esk/file-header))
 (add-to-list 'auto-insert-alist '(("\\.py\\'" . "Python header") . esk/file-header))
