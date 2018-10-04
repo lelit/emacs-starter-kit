@@ -129,34 +129,33 @@ start everything unconditionally."
  '(flymake-start-on-flymake-mode nil)
  '(git-commit-summary-max-length 70)
  '(ido-ignore-buffers
-   (quote
-    ("\\` "
+   '("\\` "
      "newsrc-dribble"
      "daneel\\.arstecnica\\.it:"
-     "\\*notmuch-saved-search-unread\\*")))
+     "\\*notmuch-saved-search-unread\\*"))
  '(ispell-dictionary "american")
- '(jedi:server-command (quote ("/usr/local/bin/jediepcserver")))
+ '(jedi:server-command '("/usr/local/bin/jediepcserver"))
+ '(js2-strict-trailing-comma-warning t)
  '(longlines-show-hard-newlines t)
  '(magit-delete-by-moving-to-trash nil)
  '(message-fill-column 78)
  '(message-kill-buffer-on-exit t)
- '(mm-text-html-renderer (quote w3m))
- '(mode-line-percent-position (quote (-3 "%o")))
+ '(mm-text-html-renderer 'w3m)
+ '(mode-line-percent-position '(-3 "%o"))
  '(notmuch-fcc-dirs "metapensiero/Sent")
  '(org-list-allow-alphabetical t)
  '(org-time-clocksum-format
-   (quote
-    (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+   '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
  '(package-selected-packages
-   (quote
-    (
-     company
+   '(company
      company-jedi
      darcsum
      docker-tramp
      dockerfile-mode
+     elfeed
      erc-hl-nicks
      expand-region
+     feature-mode
      flx-ido
      git-timemachine
      google-translate
@@ -168,36 +167,40 @@ start everything unconditionally."
      nginx-mode
      notmuch
      notmuch-labeler
+     org-bullets
+     plantuml-mode
      projectile
      py-isort
+     pycoverage
      rainbow-mode
      smartparens
      treemacs
+     typescript-mode
      vc-darcs
      w3m
      web-mode
      wgrep
      whitespace-cleanup-mode
      yaml-mode
-     yasnippet
-     )))
- '(python-fill-docstring-style (quote pep-257-nn))
+     yasnippet))
+ '(plantuml-jar-path '"/usr/share/plantuml/plantuml.jar")
  '(projectile-mode-line-fn 'lele/projectile-mode-line)
+ '(python-fill-docstring-style 'pep-257-nn)
  '(python-flymake-command
    '("flake8" "--max-line-length=95" "--ignore=E121,E123,E126,E226,E24,E266,E704,E711,W503,W504" "-"))
  '(python-flymake-command-output-pattern
    (list "^\\(?:.*\\.p[yj]\\|<?stdin>?\\):\\(?1:[0-9]+\\):\\(?:\\(?2:[0-9]+\\):\\)? \\(?3:.*\\)$" 1 2 nil 3))
  '(python-flymake-msg-alist
-   (quote
-    (("\\(^redefinition\\|.*unused.*\\|used$\\)" . :warning)
+   '(("\\(^redefinition\\|.*unused.*\\|used$\\)" . :warning)
      ("^E[0-9]+" . :error)
-     ("^W[0-9]+" . :note))))
+     ("^W[0-9]+" . :note)))
  '(scss-compile-at-save nil)
- '(send-mail-function (quote smtpmail-send-it))
+ '(send-mail-function 'smtpmail-send-it)
  '(smtpmail-smtp-server "mail.arstecnica.it")
  '(smtpmail-smtp-service 25)
+ '(tramp-syntax 'default nil (tramp))
  '(web-mode-markup-indent-offset 2)
- '(wgrep-enable-key "\C-x\C-q")
+ '(wgrep-enable-key "")
  '(whitespace-line-column nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
