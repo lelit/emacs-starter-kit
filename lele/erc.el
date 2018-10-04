@@ -1,10 +1,8 @@
 ;;; lele/erc.el --- Lele's ERC specialization
 
 (require 'netrc)
-
-(eval-when-compile
-  (require 'erc)
-  (require 'erc-join))
+(require 'erc)
+(require 'erc-join)
 
 (defun esk/erc-auto-login-with-netrc (server nick)
   "Extract username and password from ~/.netrc to authenticate on freenode.net"
