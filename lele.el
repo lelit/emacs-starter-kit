@@ -15,9 +15,9 @@
 (csetq notmuch-crypto-process-mime t)
 
 ;; Use async send-mail
-(require 'smtpmail-async)
-(setq send-mail-function #'async-smtpmail-send-it
-      message-send-mail-function #'async-smtpmail-send-it)
+;; (require 'smtpmail-async)
+;; (setq send-mail-function #'async-smtpmail-send-it
+;;       message-send-mail-function #'async-smtpmail-send-it)
 
 
 ;; reStructuredText
