@@ -311,7 +311,8 @@ Symbols matching the text at point are put first in the completion list."
 
   ;; Activate projectile)
   (require 'projectile)
-  (projectile-mode))
+  (projectile-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (defun esk/sort-words (reverse beg end)
   "Sort words in region alphabetically.
