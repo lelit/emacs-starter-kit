@@ -53,10 +53,8 @@
      (add-to-list 'projectile-other-file-alist '("pj" "js" "py"))))
 
 (defun lele/projectile-mode-line ()
-  "Report project name and type in the modeline."
-  (let ((project-name (projectile-project-name))
-        (project-type (projectile-project-type)))
-    (format "%s[%s]" projectile-mode-line-lighter (projectile-project-name))))
+  "Report project name in the modeline."
+  (format "%s[%s]" projectile-mode-line-prefix (projectile-project-name)))
 
 
 ;; google-translate
@@ -184,7 +182,7 @@ start everything unconditionally."
      yaml-mode
      yasnippet))
  '(plantuml-jar-path '"/usr/share/plantuml/plantuml.jar")
- '(projectile-mode-line-fn 'lele/projectile-mode-line)
+ '(projectile-mode-line-function 'lele/projectile-mode-line)
  '(python-fill-docstring-style 'pep-257-nn)
  '(python-flymake-command
    '("flake8" "--max-line-length=95" "--ignore=E121,E123,E126,E226,E24,E266,E704,E711,W503,W504" "-"))
