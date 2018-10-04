@@ -52,6 +52,12 @@
      ;; And this is for javascripthon
      (add-to-list 'projectile-other-file-alist '("pj" "js" "py"))))
 
+(defun lele/projectile-mode-line ()
+  "Report project name and type in the modeline."
+  (let ((project-name (projectile-project-name))
+        (project-type (projectile-project-type)))
+    (format "%s[%s]" projectile-mode-line-lighter (projectile-project-name))))
+
 
 ;; google-translate
 
@@ -175,8 +181,8 @@ start everything unconditionally."
      yaml-mode
      yasnippet
      )))
- '(projectile-mode-line (quote (:eval (format " 〚%s〛" (projectile-project-name)))))
  '(python-fill-docstring-style (quote pep-257-nn))
+ '(projectile-mode-line-fn 'lele/projectile-mode-line)
  '(python-flymake-command
    (quote
     ("flake8" "--ignore=E121,E123,E126,E226,E24,E266,E704,E711,W503,W504" "-")))
