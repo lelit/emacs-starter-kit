@@ -120,14 +120,15 @@
 (autoload 'rst-mode "rst")
 (add-to-list 'auto-mode-alist '("\\.rst\\'" . rst-mode))
 
-(autoload 'po-mode "po-mode"
-  "Major mode for translators to edit PO files" t)
-
+(autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 (add-to-list 'auto-mode-alist '("\\.po[tx]?\\'\\|\\.po\\." . po-mode))
 (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\." 'po-find-file-coding-system)
 
 (autoload 'scss-mode "scss-mode")
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+(autoload 'vbnet-mode "vbnet-mode" "Mode for editing VB.NET code." t)
+(add-to-list 'auto-mode-alist '("\\.\\(aspx\\|vb\\)\\'" . vbnet-mode))
 
 (eval-after-load 'grep
   '(when (boundp 'grep-find-ignored-files)
@@ -171,6 +172,7 @@
 (add-hook 'sh-mode-hook #'esk/run-coding-hook)
 (add-hook 'sql-mode-hook #'esk/run-coding-hook)
 (add-hook 'sql-mode-hook #'sqlind-setup)
+(add-hook 'vbnet-mode-hook #'esk/run-coding-hook)
 (add-hook 'web-mode-hook #'esk/run-coding-hook)
 (add-hook 'yaml-mode-hook #'esk/run-coding-hook)
 
