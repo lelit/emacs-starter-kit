@@ -405,7 +405,7 @@
 ;;      Recognize some ASP directives, allowing usage of this major mode also
 ;;      for .aspx sources.
 ;;
-;;      Properly handle modules in the imenu index machinery.
+;;      Properly handle modules and classes in the imenu index machinery.
 ;;
 
 ;; Notes by Dave Love
@@ -904,7 +904,8 @@ See `imenu-create-index-function' for more information."
                             "[ \t]" t)))
                (and (<= 1 (length tokens))
                     (let ((t0 (downcase (nth 0 tokens))))
-                      (or (string= t0 "module")
+                      (or (string= t0 "class")
+                          (string= t0 "module")
                           (string= t0 "namespace"))))))
             (nreverse (cdr (nreverse (cddar index-alist))))
           index-alist)))))
@@ -1071,7 +1072,8 @@ See `imenu-create-index-function' for more information."
        ,(concat
          "^[ \t]*" ;; leading whitespace
          "\\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?\\|"
+         "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
+         "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
          "[Ff]riend\\(?: [Ss]hared\\)?\\|"
          "[Ss]tatic\\)"
          "[ \t]+"
@@ -1087,8 +1089,9 @@ See `imenu-create-index-function' for more information."
        ,(concat
          "^[ \t]*" ;; leading whitespace
          "\\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?\\|"
+         "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
          "[Ss]tatic\\|"
+         "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
          "[Ff]riend\\)"
          "[ \t]+"
          "\\([Ss]ub\\)"
