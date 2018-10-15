@@ -1288,7 +1288,7 @@ See `imenu-create-index-function' for more information."
 
      `(asp-directive "^[ \t]*<%@[^%]*%>$")
      `(asp-script-start-tag "^[ \t]*<script[ \t][^>]*>$")
-     `(asp-script-end-tag "^[ \t]*</script[ \t][^>]*>$")
+     `(asp-script-end-tag "^[ \t]*</script[ \t]*[^>]*>$")
 
      )))
 
