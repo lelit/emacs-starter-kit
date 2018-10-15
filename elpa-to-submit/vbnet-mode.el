@@ -405,6 +405,8 @@
 ;;      Recognize some ASP directives, allowing usage of this major mode also
 ;;      for .aspx sources.
 ;;
+;;      Properly handle modules in the imenu index machinery.
+;;
 
 ;; Notes by Dave Love
 ;; BTW, here's a script for making tags tables that I (Dave Love) have
@@ -755,13 +757,16 @@ alist. Leaves point after the \"End Namespace\", if it exists."
            (looking-at (vbnet-regexp 'intf-start))
            (looking-at (vbnet-regexp 'struct-start))
            (looking-at (vbnet-regexp 'enum-start))
+           (looking-at (vbnet-regexp 'module-start))
            (looking-at (vbnet-regexp 'namespace-start)))
 
-          (if (string= (downcase (match-string-no-properties 1)) "namespace")
-              (setq this-flavor (match-string-no-properties 1)
-                    this-item (match-string-no-properties 2))
-            (setq this-flavor (match-string-no-properties 2)
-                  this-item (match-string-no-properties 3)))
+          (let ((p1 (downcase (match-string-no-properties 1))))
+            (if (or (string= p1 "module")
+                    (string= p1 "namespace"))
+                (setq this-flavor (match-string-no-properties 1)
+                      this-item (match-string-no-properties 2))
+              (setq this-flavor (match-string-no-properties 2)
+                    this-item (match-string-no-properties 3))))
 
           (cond
            ((eq state 0)
@@ -806,6 +811,7 @@ alist. Leaves point after the \"End Namespace\", if it exists."
            (looking-at (vbnet-regexp 'intf-end))
            (looking-at (vbnet-regexp 'struct-end))
            (looking-at (vbnet-regexp 'enum-end))
+           (looking-at (vbnet-regexp 'module-end))
            (looking-at (vbnet-regexp 'namespace-end)))
 
           (cond
@@ -897,8 +903,9 @@ See `imenu-create-index-function' for more information."
                             (car (car index-alist))
                             "[ \t]" t)))
                (and (<= 1 (length tokens))
-                    (string= (downcase
-                              (nth 0 tokens)) "namespace"))))
+                    (let ((t0 (downcase (nth 0 tokens))))
+                      (or (string= t0 "module")
+                          (string= t0 "namespace"))))))
             (nreverse (cdr (nreverse (cddar index-alist))))
           index-alist)))))
 
@@ -1185,12 +1192,19 @@ See `imenu-create-index-function' for more information."
      '(end-try         "^[ \t]*[Ee]nd[ \t]+[Tt]ry\\b")
      '(class           "^[ \t]*[Cc]lass\\b")
      '(end-class       "^[ \t]*[Ee]nd[ \t]+[Cc]lass\\b")
-     '(module          "^[ \t]*[Mm]odule\\b")
-     '(end-module      "^[ \t]*[Ee]nd[ \t]+[Mm]odule\\b")
      '(using           "^[ \t]*\\([Uu]sing\\)\\b")
      '(end-using       "^[ \t]*[Ee]nd[ \t]+[Uu]sing\\b")
      '(blank           "^[ \t]*$")
      '(comment         "^[ \t]*\\s<.*$")
+
+     `(module-start
+       ,(concat
+         "^[ \t]*"
+         "\\([Mm]odule\\)"
+         "[ \t]+"
+         "\\([^ \t\(\n]+\\)" ;; name of module
+         "[ \t]*"))
+     '(module-end      "^[ \t]*[Ee]nd[ \t]+[Mm]odule\\b")
 
      '(propget-start   "^[ \t]*\\([Gg]et\\)[ \t]*$")
      '(propget-end     "^[ \t]*[Ee]nd[ \t]+[Gg]et\\b")
@@ -2252,7 +2266,7 @@ Indent continuation lines according to some rules.
                   (looking-at (vbnet-regexp 'namespace-start))
                   (looking-at (vbnet-regexp 'propget-start))
                   (looking-at (vbnet-regexp 'propset-start))
-                  (looking-at (vbnet-regexp 'module)))
+                  (looking-at (vbnet-regexp 'module-start)))
               (+ indent vbnet-mode-indent))
 
              ((and (or (looking-at (vbnet-regexp 'if))
