@@ -407,6 +407,11 @@
 ;;
 ;;      Properly handle modules and classes in the imenu index machinery.
 ;;
+;;      Drop vbnet-allow-single-line-if and unconditionally handle single line
+;;      if statements (but I did not understand the meaning of the related
+;;      "known bugs" entry below...)
+;;
+
 
 ;; Notes by Dave Love
 ;; BTW, here's a script for making tags tables that I (Dave Love) have
@@ -515,11 +520,6 @@ This is meaningful only if flymake is loaded."
 (defcustom vbnet-ide-pathname nil
   "*The full pathname of your Visual Basic exe file, if any."
   :type 'string :group 'vbnet)
-
-;; KJW Provide for my preference in if statements
-(defcustom vbnet-allow-single-line-if nil
-  "*Whether to allow single line if."
-  :type 'boolean :group 'vbnet)
 
 (defcustom vbnet-cmd-line-limit 18
   "The number of lines at the top of the file to look in, to find
@@ -1172,6 +1172,7 @@ See `imenu-create-index-function' for more information."
      '(namespace-end   "^[ \t]*[Ee]nd[ \t]+[Nn]amespace\\b")
 
      '(if              "^[ \t]*#?\\([Ii]f\\)[ \t]+.*[ \t_]+")
+     ;; single line variant
      '(ifthen          "^[ \t]*#?\\([Ii]f\\)\\b.+\\<[Tt]hen\\>\\s-\\S-+")
      '(else            "^[ \t]*#?[Ee]lse\\([Ii]f\\)?")
      '(endif           "[ \t]*#?[Ee]nd[ \t]*[Ii]f")
@@ -2273,10 +2274,9 @@ Indent continuation lines according to some rules.
                   (looking-at (vbnet-regexp 'module-start)))
               (+ indent vbnet-mode-indent))
 
-             ((and (or (looking-at (vbnet-regexp 'if))
-                       (looking-at (vbnet-regexp 'else)))
-                   (not (and vbnet-allow-single-line-if
-                             (looking-at (vbnet-regexp 'ifthen)))))
+             ((or (and (looking-at (vbnet-regexp 'if))
+                       (not (looking-at (vbnet-regexp 'ifthen))))
+                  (looking-at (vbnet-regexp 'else)))
               (+ indent vbnet-mode-indent))
 
              ((or (looking-at (vbnet-regexp 'select))
