@@ -116,6 +116,8 @@
 (add-to-list 'auto-mode-alist '("\\.\\(html\\|jinja\\|jinja2\\|mako\\|pt\\|xhtml\\)\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.raml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("Makefile\\." . makefile-gmake-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\(gitlab\\.com\\|github\\.com\\).+\\.txt\\'" . gfm-mode))
 
 (autoload 'rst-mode "rst")
 (add-to-list 'auto-mode-alist '("\\.rst\\'" . rst-mode))

@@ -24,6 +24,7 @@
    'js2-mode
    'json-mode
    'magit
+   'markdown-mode
    'projectile
    'py-isort
    'scss-mode
