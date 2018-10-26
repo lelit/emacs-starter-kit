@@ -24,14 +24,14 @@
   ;; Load credentials from ~/.netrc if present
   ;(add-hook 'erc-after-connect 'esk/erc-auto-login-with-netrc)
 
-  (setq erc-autojoin-channels-alist
+  (csetq erc-autojoin-channels-alist
         '(("freenode.net"
            "#rafanass"
            "#linuxtrent"
            "#darcs"
            "#sqlalchemy"
            )))
-  (setq erc-nick '("lelit" "lelix"))
+  (csetq erc-nick '("lelit" "lelix"))
 
   (erc-autojoin-mode 1)
 
@@ -39,7 +39,7 @@
   (let ((host (netrc-machine (netrc-parse "~/.netrc") "irc.arstecnica.it" t)))
     (if host
         (let ((password (netrc-get host "password")))
-          (setq erc-email-userid (netrc-get host "login"))
+          (csetq erc-email-userid (netrc-get host "login"))
           (erc-open "daneel.arstecnica.it"
                     7777
                     "lelit"
@@ -48,5 +48,6 @@
                     password))
       (message "... credentials not found in ~/.netrc!"))))
 
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                "324" "329" "332" "333" "353" "477"))
+(csetq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                 "324" "329" "332" "333" "353" "477"))
+(csetq erc-hide-list '("JOIN" "PART" "QUIT" "KICK" "NICK" "MODE"))
