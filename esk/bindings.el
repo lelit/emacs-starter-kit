@@ -96,7 +96,7 @@
 
 (global-set-key [f9] #'magit-status)
 (global-set-key [C-f9] #'esk/parent-magit-status)
-(global-set-key [S-f9] #'magit-blame)
+(global-set-key [S-f9] #'magit-blame-addition)
 (global-set-key [M-f9] #'magit-log-buffer-file)
 (global-set-key [C-S-f9] #'esk/whatsnew-or-magit-status-or-vc-dir)
 
