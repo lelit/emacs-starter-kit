@@ -132,6 +132,9 @@
 (autoload 'vbnet-mode "vbnet-mode" "Mode for editing VB.NET code." t)
 (add-to-list 'auto-mode-alist '("\\.vb\\'" . vbnet-mode))
 
+(autoload 'nix-mode "nix-mode")
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+
 (eval-after-load 'grep
   '(when (boundp 'grep-find-ignored-files)
     (add-to-list 'grep-find-ignored-files "target")
