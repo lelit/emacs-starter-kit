@@ -130,7 +130,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 (autoload 'vbnet-mode "vbnet-mode" "Mode for editing VB.NET code." t)
-(add-to-list 'auto-mode-alist '("\\.\\(aspx\\|vb\\)\\'" . vbnet-mode))
+(add-to-list 'auto-mode-alist '("\\.vb\\'" . vbnet-mode))
 
 (eval-after-load 'grep
   '(when (boundp 'grep-find-ignored-files)
