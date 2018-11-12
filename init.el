@@ -95,16 +95,17 @@ not in the generic assignments."
                   "headers"
 
                   ; major modes
+                  "gnus"
                   "erc"
                   "eshell"
                   "js"
                   "lisp"
+                  "org"
                   "python"
 
                   ; extensions
                   "completion"
                   "elfeed"
-                  "gnus"
                   "yasnippet"
                   ))
 
