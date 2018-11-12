@@ -19,6 +19,7 @@
    'erc-hl-nicks
    'expand-region
    'flx-ido
+   'git-link
    'iedit
    'jedi-core
    'js2-mode
