@@ -298,13 +298,13 @@ Symbols matching the text at point are put first in the completion list."
 
   (let ((dir (ido-read-directory-name "Virtual desktop: ")))
     (esk/virtualenv-activate dir)
-    (csetq desktop-base-file-name "emacs.desktop")
-    (csetq desktop-dirname dir)
-    (csetq desktop-save t)
-    (csetq desktop-save-mode t)
+    (esk/csetq desktop-base-file-name "emacs.desktop")
+    (esk/csetq desktop-dirname dir)
+    (esk/csetq desktop-save t)
+    (esk/csetq desktop-save-mode t)
     (unless (desktop-read dir)
       (dired dir))
-    (csetq server-name (md5 dir)))
+    (esk/csetq server-name (md5 dir)))
 
   ;; Activate the Emacs server
   (server-start)

@@ -8,8 +8,8 @@
   (require 'js2-mode)
   (require 'hl-line))
 
-(csetq js2-include-jslint-globals nil)
-(csetq js2-indent-switch-body t)
+(esk/csetq js2-include-jslint-globals nil)
+(esk/csetq js2-indent-switch-body t)
 
 (defun esk/js2-apply-jsl-declares ()
   "Extract top level //jsl:declare XXX comments"

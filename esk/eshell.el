@@ -4,9 +4,9 @@
 (eval-when-compile
   (require 'em-dirs))
 
-(csetq eshell-cmpl-cycle-completions nil)
-(csetq eshell-save-history-on-exit t)
-(csetq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\|\\.bzr\\|_darcs\\)/\\'")
+(esk/csetq eshell-cmpl-cycle-completions nil)
+(esk/csetq eshell-save-history-on-exit t)
+(esk/csetq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\|\\.bzr\\|_darcs\\)/\\'")
 
 (eval-after-load 'esh-opt
   '(progn

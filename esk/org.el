@@ -14,18 +14,18 @@
           (lambda ()
             (org-bullets-mode t)))
 
-(csetq org-ellipsis "⤵")
+(esk/csetq org-ellipsis "⤵")
 
 ;; Redefine "g" as 8 hours, "w" as 5 days, "m" as 4 weeks
-(csetq org-duration-units `(("d" . ,(* 60 8))
-                            ("w" . ,(* 60 8 5))
-                            ("m" . ,(* 60 8 5 4))
-                            ; italian variants
-                            ("g" . ,(* 60 8))
-                            ("s" . ,(* 60 8 5))))
+(esk/csetq org-duration-units `(("d" . ,(* 60 8))
+                                ("w" . ,(* 60 8 5))
+                                ("m" . ,(* 60 8 5 4))
+                                ;; italian variants
+                                ("g" . ,(* 60 8))
+                                ("s" . ,(* 60 8 5))))
 
 ;; Recognize "number followed by duration unit" as a number, to align them on the right
-(csetq org-table-number-regexp
+(esk/csetq org-table-number-regexp
        "^\\([<>]?[-+^.0-9]*[0-9][-+^.0-9eEdDx()%:]*\\|[<>]?[-+]?0[xX][0-9a-fA-F.]+\\|[<>]?[-+]?[0-9]+#[0-9a-zA-Z.]+\\|nan\\|[-+u]?inf\\|[1-9][0-9]*[dmwgs]?\\)$")
 
-(csetq org-duration-format 'h:mm)
+(esk/csetq org-duration-format 'h:mm)

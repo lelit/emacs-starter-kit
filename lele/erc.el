@@ -13,7 +13,7 @@
         (let ((password (netrc-get host "password"))
               (username (netrc-get host "login")))
           (when (string= username nick)
-            (setq erc-prompt-for-password nil)
+            (erc/csetq erc-prompt-for-password nil)
             (erc-message "PRIVMSG"
                          (concat "NickServ identify " password))))
       (message "... credentials not found in ~/.netrc!"))))
@@ -24,14 +24,14 @@
   ;; Load credentials from ~/.netrc if present
   ;(add-hook 'erc-after-connect 'esk/erc-auto-login-with-netrc)
 
-  (csetq erc-autojoin-channels-alist
-        '(("freenode.net"
-           "#rafanass"
-           "#linuxtrent"
-           "#darcs"
-           "#sqlalchemy"
-           )))
-  (csetq erc-nick '("lelit" "lelix"))
+  (esk/csetq erc-autojoin-channels-alist
+             '(("freenode.net"
+                "#rafanass"
+                "#linuxtrent"
+                "#darcs"
+                "#sqlalchemy"
+                )))
+  (esk/csetq erc-nick '("lelit" "lelix"))
 
   (erc-autojoin-mode 1)
 
@@ -39,7 +39,7 @@
   (let ((host (netrc-machine (netrc-parse "~/.netrc") "irc.arstecnica.it" t)))
     (if host
         (let ((password (netrc-get host "password")))
-          (csetq erc-email-userid (netrc-get host "login"))
+          (esk/csetq erc-email-userid (netrc-get host "login"))
           (erc-open "daneel.arstecnica.it"
                     7777
                     "lelit"
@@ -48,6 +48,6 @@
                     password))
       (message "... credentials not found in ~/.netrc!"))))
 
-(csetq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+(esk/csetq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                  "324" "329" "332" "333" "353" "477"))
-(csetq erc-hide-list '("JOIN" "PART" "QUIT" "KICK" "NICK" "MODE"))
+(esk/csetq erc-hide-list '("JOIN" "PART" "QUIT" "KICK" "NICK" "MODE"))

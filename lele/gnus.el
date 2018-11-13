@@ -5,19 +5,19 @@
 ;;:Licenza:  GNU General Public License version 3 or later
 ;;
 
-(csetq gnus-select-method '(nntp "gmane"
-                                 (nntp-address "news.gmane.org")
-                                 (nnir-search-engine nntp)))
+(esk/csetq gnus-select-method '(nntp "gmane"
+                                     (nntp-address "news.gmane.org")
+                                     (nnir-search-engine nntp)))
 
-(csetq gnus-posting-styles
-       '((".*"
-          (signature-file "~/.signature")
-          (name "Lele Gaifax")
-          (organization "Nautilus Entertainments"))
-         ("^mail.+:"
-          (name "Lele Gaifax")
-          (organization "Nautilus Entertainments")
-          (signature-file "~/.mail-signature"))))
+(esk/csetq gnus-posting-styles
+           '((".*"
+              (signature-file "~/.signature")
+              (name "Lele Gaifax")
+              (organization "Nautilus Entertainments"))
+             ("^mail.+:"
+              (name "Lele Gaifax")
+              (organization "Nautilus Entertainments")
+              (signature-file "~/.mail-signature"))))
 
 (setq esk/gnus-user-groups '("gmane.comp.python.general"
                              "gmane.comp.python.devel"

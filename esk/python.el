@@ -76,7 +76,7 @@
      (add-hook 'python-mode-hook #'esk/python-mode-setup)
 
      ;; Avoid pointless warning
-     (csetq python-indent-guess-indent-offset-verbose nil)
+     (esk/csetq python-indent-guess-indent-offset-verbose nil)
 
      ;; Activate pdbtrack in M-x shell buffers
      (add-hook 'comint-output-filter-functions #'python-pdbtrack-comint-output-filter-function)
@@ -98,4 +98,4 @@
 (eval-after-load 'py-isort
   '(progn
      ;; --multi_line_output
-     (csetq py-isort-options '("-m 3"))))
+     (esk/csetq py-isort-options '("-m 3"))))

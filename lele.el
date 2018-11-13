@@ -5,14 +5,14 @@
 ;;:Licenza:   GNU General Public License version 3 or later
 ;;
 
-(csetq user-mail-address "lele@metapensiero.it")
-(csetq user-full-name "Lele Gaifax")
+(esk/csetq user-mail-address "lele@metapensiero.it")
+(esk/csetq user-full-name "Lele Gaifax")
 
 
 ;; notmuch
 
 (load (concat esk/user-specific-dir "notmuch"))
-(csetq notmuch-crypto-process-mime t)
+(esk/csetq notmuch-crypto-process-mime t)
 
 ;; Use async send-mail
 ;; (require 'smtpmail-async)
@@ -51,8 +51,8 @@
 ;; google-translate
 
 (when (require 'google-translate nil t)
-  (csetq google-translate-default-source-language "en")
-  (csetq google-translate-default-target-language "it")
+  (esk/csetq google-translate-default-source-language "en")
+  (esk/csetq google-translate-default-target-language "it")
   (global-set-key "\C-ct." #'google-translate-at-point)
   (global-set-key "\C-ctt" #'google-translate-query-translate)
   (global-set-key "\C-ctr." #'google-translate-at-point-reverse)
@@ -61,8 +61,8 @@
 
 ;; Automatically update copyright years when saving
 
-(csetq copyright-names-regexp (regexp-quote (user-full-name)))
-(csetq copyright-year-ranges t)
+(esk/csetq copyright-names-regexp (regexp-quote (user-full-name)))
+(esk/csetq copyright-year-ranges t)
 (add-hook 'before-save-hook #'copyright-update)
 
 

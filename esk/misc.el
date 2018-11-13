@@ -14,38 +14,38 @@
 (prefer-coding-system 'utf-8)
 (ansi-color-for-comint-mode-on)
 
-(csetq color-theme-is-global t)
+(esk/csetq color-theme-is-global t)
 (add-hook 'compilation-mode-hook #'esk/turn-on-truncate-lines)
-(csetq compilation-scroll-output t)
-(csetq echo-keystrokes 0.1)
-(csetq ediff-window-setup-function #'ediff-setup-windows-plain)
-(csetq enable-local-eval t)
-(csetq font-lock-maximum-decoration t)
-(csetq gc-cons-threshold 20000000)
-(csetq imenu-auto-rescan t)
-(csetq indent-tabs-mode nil)
-(csetq indicate-empty-lines t)
-(csetq inhibit-startup-message t)
-(csetq mode-require-final-newline 'ask)
-(csetq parens-require-spaces nil)
-(csetq scroll-preserve-screen-position t)
-(csetq shift-select-mode nil)
-(csetq sentence-end-double-space nil)
-(csetq transient-mark-mode t)
-(csetq truncate-partial-width-windows nil)
-(csetq uniquify-buffer-name-style 'forward)
-(csetq visible-bell t)
-(csetq visual-line-fringe-indicators '(left-curly-arrow
-                                       right-curly-arrow))
-(csetq whitespace-style '(face
-                          trailing
-                          lines-tail
-                          empty
-                          space-before-tab
-                          space-after-tab
-                          indentation
-                          indentation::space
-                          tabs))
+(esk/csetq compilation-scroll-output t)
+(esk/csetq echo-keystrokes 0.1)
+(esk/csetq ediff-window-setup-function #'ediff-setup-windows-plain)
+(esk/csetq enable-local-eval t)
+(esk/csetq font-lock-maximum-decoration t)
+(esk/csetq gc-cons-threshold 20000000)
+(esk/csetq imenu-auto-rescan t)
+(esk/csetq indent-tabs-mode nil)
+(esk/csetq indicate-empty-lines t)
+(esk/csetq inhibit-startup-message t)
+(esk/csetq mode-require-final-newline 'ask)
+(esk/csetq parens-require-spaces nil)
+(esk/csetq scroll-preserve-screen-position t)
+(esk/csetq shift-select-mode nil)
+(esk/csetq sentence-end-double-space nil)
+(esk/csetq transient-mark-mode t)
+(esk/csetq truncate-partial-width-windows nil)
+(esk/csetq uniquify-buffer-name-style 'forward)
+(esk/csetq visible-bell t)
+(esk/csetq visual-line-fringe-indicators '(left-curly-arrow
+                                           right-curly-arrow))
+(esk/csetq whitespace-style '(face
+                              trailing
+                              lines-tail
+                              empty
+                              space-before-tab
+                              space-after-tab
+                              indentation
+                              indentation::space
+                              tabs))
 
 (add-to-list 'safe-local-variable-values '(lexical-binding . t))
 
@@ -65,16 +65,16 @@
 ;; ido-mode is like magic pixie dust!
 (ido-mode t)
 (ido-everywhere 1)
-(csetq ido-enable-prefix nil)
-(csetq ido-enable-flex-matching t)
-(csetq ido-create-new-buffer 'always)
-(csetq ido-use-filename-at-point nil)
-(csetq ido-max-prospects 10)
-(csetq ido-ignore-files '("\\`#" "\\`.#" "\\.orig\\'"
+(esk/csetq ido-enable-prefix nil)
+(esk/csetq ido-enable-flex-matching t)
+(esk/csetq ido-create-new-buffer 'always)
+(esk/csetq ido-use-filename-at-point nil)
+(esk/csetq ido-max-prospects 10)
+(esk/csetq ido-ignore-files '("\\`#" "\\`.#" "\\.orig\\'"
                          "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
-(csetq ido-ignore-directories '("\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
-(csetq ido-auto-merge-work-directories-length -1)
-(csetq ido-file-extensions-order '(".py" ".js" t))
+(esk/csetq ido-ignore-directories '("\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+(esk/csetq ido-auto-merge-work-directories-length -1)
+(esk/csetq ido-file-extensions-order '(".py" ".js" t))
 
 ;; even more when coupled with flx
 (require 'flx-ido)
@@ -97,17 +97,17 @@
 (random t)
 
 ;; Activate file backups
-(csetq version-control t)
-(csetq delete-old-versions t)
-(csetq backup-by-copying-when-linked t)
-(csetq vc-make-backup-files t)
+(esk/csetq version-control t)
+(esk/csetq delete-old-versions t)
+(esk/csetq backup-by-copying-when-linked t)
+(esk/csetq vc-make-backup-files t)
 
 ;; Don't clutter up directories with files~
-(csetq backup-directory-alist `(("." . ,(expand-file-name
-                                         (concat esk/top-dir "backups")))))
+(esk/csetq backup-directory-alist `(("." . ,(expand-file-name
+                                             (concat esk/top-dir "backups")))))
 
 ;; Ignore files contained within a .git directory
-(csetq backup-enable-predicate #'esk/backup-enable-predicate)
+(esk/csetq backup-enable-predicate #'esk/backup-enable-predicate)
 
 ;; Associate modes with file extensions
 
@@ -149,7 +149,7 @@
            '(("javascript" . ".*\\.js\\.jinja2\\'")))))
 
 ;; Default to unified diffs
-(csetq diff-switches "-u")
+(esk/csetq diff-switches "-u")
 
 ;; Cosmetics
 
@@ -164,7 +164,7 @@
      (set-face-foreground 'diff-removed "red3")))
 
 ;; make emacs use the clipboard
-(csetq select-enable-clipboard t)
+(esk/csetq select-enable-clipboard t)
 
 (add-hook 'c++-mode-hook #'esk/run-coding-hook)
 (add-hook 'c-mode-hook #'esk/run-coding-hook)
@@ -181,9 +181,9 @@
 (add-hook 'web-mode-hook #'esk/run-coding-hook)
 (add-hook 'yaml-mode-hook #'esk/run-coding-hook)
 
-(setq c-default-style '((c-mode . "stroustrup")
-                        (c++-mode . "stroustrup")
-                        (objc-mode . "stroustrup")))
+(esk/csetq c-default-style '((c-mode . "stroustrup")
+                             (c++-mode . "stroustrup")
+                             (objc-mode . "stroustrup")))
 
 ;; avoid flood of pointless warnings
 (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)

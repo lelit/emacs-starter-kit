@@ -11,19 +11,19 @@ This results in a filename of the form #channel@server.txt."
 
 (eval-after-load 'erc
   '(progn
-     (csetq erc-log-insert-log-on-open nil)
-     (csetq erc-log-channels t)
-     (csetq erc-log-channels-directory "~/irclogs/")
-     (csetq erc-generate-log-file-name-function #'esk/erc-generate-log-file-name-brief)
-     (csetq erc-log-write-after-send t)
-     (csetq erc-log-write-after-insert t)
-     (csetq erc-save-buffer-on-part nil)
-     (csetq erc-hide-timestamps nil)
-     (csetq erc-notifications-icon
+     (esk/csetq erc-log-insert-log-on-open nil)
+     (esk/csetq erc-log-channels t)
+     (esk/csetq erc-log-channels-directory "~/irclogs/")
+     (esk/csetq erc-generate-log-file-name-function #'esk/erc-generate-log-file-name-brief)
+     (esk/csetq erc-log-write-after-send t)
+     (esk/csetq erc-log-write-after-insert t)
+     (esk/csetq erc-save-buffer-on-part nil)
+     (esk/csetq erc-hide-timestamps nil)
+     (esk/csetq erc-notifications-icon
             "/usr/share/notify-osd/icons/hicolor/scalable/status/notification-message-im.svg")
-     (csetq erc-auto-set-away nil)
-     (csetq erc-autoaway-mode nil)
-     (csetq erc-modules
+     (esk/csetq erc-auto-set-away nil)
+     (esk/csetq erc-autoaway-mode nil)
+     (esk/csetq erc-modules
             (quote
              (
               autojoin

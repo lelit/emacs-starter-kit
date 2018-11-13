@@ -11,27 +11,27 @@
 
 ;; Since I only use Gnus to read the newsgroups, disable reading and writing
 ;; the generic newsrc file
-(csetq gnus-read-newsrc-file nil)
-(csetq gnus-save-newsrc-file nil)
+(esk/csetq gnus-read-newsrc-file nil)
+(esk/csetq gnus-save-newsrc-file nil)
 
 ;; Store all Gnus stuff under a directory ignored by git
-(csetq gnus-home-directory (concat esk/top-dir "gnus/"))
-(csetq gnus-init-file (concat gnus-home-directory "gnus-init"))
-(csetq gnus-startup-file (concat gnus-home-directory "newsrc"))
+(esk/csetq gnus-home-directory (concat esk/top-dir "gnus/"))
+(esk/csetq gnus-init-file (concat gnus-home-directory "gnus-init"))
+(esk/csetq gnus-startup-file (concat gnus-home-directory "newsrc"))
 
 ;; Also, I manually select which newsgroups I'm gonna follow, so don't bother
 ;; with keeping a notion of "new" newsgroups
-(csetq gnus-save-killed-list nil)
-(csetq gnus-check-new-newsgroups nil)
+(esk/csetq gnus-save-killed-list nil)
+(esk/csetq gnus-check-new-newsgroups nil)
 
 ;; Customize appearence
-(csetq gnus-permanently-visible-groups ".")
-(csetq gnus-summary-line-format "%U%R%z%d %(%[%-20,20a%]%) %I%s\n")
-(csetq gnus-summary-same-subject "⤷")
+(esk/csetq gnus-permanently-visible-groups ".")
+(esk/csetq gnus-summary-line-format "%U%R%z%d %(%[%-20,20a%]%) %I%s\n")
+(esk/csetq gnus-summary-same-subject "⤷")
 
 ;; Prefer plain text alternative
-(csetq mm-discouraged-alternatives '("text/html" "text/richtext" "image/.*"))
-(csetq mm-automatic-display
+(esk/csetq mm-discouraged-alternatives '("text/html" "text/richtext" "image/.*"))
+(esk/csetq mm-automatic-display
        '("text/plain" "text/enriched" "text/richtext"
          ;; "text/html"
          "text/x-verbatim"
@@ -44,10 +44,10 @@
          ;; Mutt still uses this even though it has already been withdrawn.
          "application/pgp\\'"
          "text/x-org"))
-(csetq gnus-buttonized-mime-types '("multipart/alternative" "multipart/signed"))
+(esk/csetq gnus-buttonized-mime-types '("multipart/alternative" "multipart/signed"))
 
 ;; Archive - putting sent mail and news somewhere
-(csetq gnus-message-archive-group
+(esk/csetq gnus-message-archive-group
        '((if (message-news-p)
              (concat "sent-news-"
                      (format-time-string "%b-%y"))
