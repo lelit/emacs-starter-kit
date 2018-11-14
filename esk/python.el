@@ -2,7 +2,67 @@
 ;;
 
 (eval-when-compile
-  (require 'python))
+  (require 'python)
+  (require 'virtualenv))
+
+(require 'smartparens-python)
+
+(defun esk/virtualenv-activate (dir)
+  "Activate the virtualenv located in DIR."
+
+  ;; Removing the eventually present trailing slash
+  (when (string= (substring dir -1 nil) "/")
+    (setq dir (substring dir 0 -1)))
+
+  ;; Eventually deactivate previous virtualenv
+  (when virtualenv-name
+    (virtualenv-deactivate))
+
+  ;; Storing old variables
+  (setq virtualenv-old-path (getenv "PATH"))
+  (setq virtualenv-old-exec-path exec-path)
+
+  (setq virtualenv-name (file-name-nondirectory dir))
+
+  ;; I usually have the concrete virtual env isolated in a "env"
+  ;; subdirectory, so use that if it exists.
+  (if (file-exists-p (concat dir "/env/bin"))
+      (setq dir (concat dir "/env")))
+
+  (setenv "VIRTUAL_ENV" dir)
+  (virtualenv-add-to-path (concat dir "/bin"))
+  (add-to-list 'exec-path (concat dir "/bin"))
+
+  (message (concat "Virtualenv '" virtualenv-name "' activated.")))
+
+(defun esk/activate-virtual-desktop ()
+  "Turn on a virtualenv and its related desktop, in auto-save mode"
+  (interactive)
+
+  (require 'virtualenv)
+
+  ;; Eventually deactivate current desktop
+  (when desktop-save-mode
+    (virtualenv-deactivate)
+    (desktop-kill))
+
+  (let ((dir (ido-read-directory-name "Virtual desktop: ")))
+    (esk/virtualenv-activate dir)
+    (esk/csetq desktop-base-file-name "emacs.desktop")
+    (esk/csetq desktop-dirname dir)
+    (esk/csetq desktop-save t)
+    (esk/csetq desktop-save-mode t)
+    (unless (desktop-read dir)
+      (dired dir))
+    (esk/csetq server-name (md5 dir)))
+
+  ;; Activate the Emacs server
+  (server-start)
+
+  ;; Activate projectile)
+  (require 'projectile)
+  (projectile-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (defun esk/python-region-as-new-variable ()
   "Create a new variable, just before current statement, initialized to current region."

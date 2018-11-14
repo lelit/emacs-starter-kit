@@ -1,6 +1,8 @@
 ;;; esk/misc.el --- Things that don't fit anywhere else
 ;;
 
+(require 'smartparens)
+
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
