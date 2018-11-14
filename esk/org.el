@@ -8,11 +8,11 @@
 
 (require 'org)
 (require 'org-duration)
-(require 'org-bullets)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (org-bullets-mode t)))
+(when (require 'org-bullets nil t)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (org-bullets-mode t))))
 
 (esk/csetq org-ellipsis "⤵")
 
