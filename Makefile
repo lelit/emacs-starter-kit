@@ -17,7 +17,7 @@ ESKLOG=/tmp/$(USER)-emacs-starter-kit.log
 BCTIMESTAMP=.byte-compile-timestamp
 
 .PHONY: all
-all: update-elpa $(ETSAL) $(BCTIMESTAMP)
+all: update-elpa $(ETSAL) compile
 
 .PHONY: clean
 clean:
@@ -35,6 +35,9 @@ $(BCTIMESTAMP): $(ALLELS)
 	@echo "Compiling $?..."
 	@$(EMAX) -f batch-byte-compile $? >>$(ESKLOG) 2>&1
 	@touch $@
+
+.PHONY: compile
+compile: $(BCTIMESTAMP)
 
 .PHONY: update-elpa
 update-elpa:
