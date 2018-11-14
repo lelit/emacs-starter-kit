@@ -33,7 +33,7 @@ $(ETSAL): $(ETSELS)
 
 $(BCTIMESTAMP): $(ALLELS)
 	@echo "Compiling $?..."
-	@$(EMAX) -f batch-byte-compile $? >>$(ESKLOG) 2>&1
+	@$(EMAX) -f batch-byte-compile $? >>$(ESKLOG) 2>&1 || cat $(ESKLOG)
 	@touch $@
 
 .PHONY: compile
