@@ -83,6 +83,7 @@
   "#+LANGUAGE: it\n"
   "#+LATEX_CLASS_OPTIONS: [a4paper]\n"
   "#+LATEX_HEADER: \\usepackage[italian]{babel}\n"
+  "#+LATEX_HEADER: \\usepackage[margin=2.5cm]{geometry}"
   "#+LATEX_HEADER_EXTRA: \\setlength{\\parindent}{0pt}\n"
   "# Local IspellDict: italiano\n\n"
   "* " str "\n")
@@ -103,6 +104,7 @@
   "#+LANGUAGE: it\n"
   "#+LATEX_CLASS_OPTIONS: [a4paper]\n"
   "#+LATEX_HEADER: \\usepackage[italian]{babel}\n"
+  "#+LATEX_HEADER: \\usepackage[margin=2.5cm]{geometry}"
   "#+LATEX_HEADER_EXTRA: \\setlength{\\parindent}{0pt}\n"
   "# Local IspellDict: italiano\n\n"
   "#+BEGIN: columnview :hlines 1 :id global :indent t\n"
@@ -135,6 +137,7 @@
   "#+LANGUAGE: it\n"
   "#+LATEX_CLASS_OPTIONS: [a4paper]\n"
   "#+LATEX_HEADER: \\usepackage[italian]{babel}\n"
+  "#+LATEX_HEADER: \\usepackage[margin=2.5cm]{geometry}"
   "#+LATEX_HEADER_EXTRA: \\setlength{\\parindent}{0pt}\n"
   "#+LINK: issue " (progn (git-link-homepage "origin") (current-kill 0)) "/issues/\n"
   "# Local IspellDict: italiano\n\n"
