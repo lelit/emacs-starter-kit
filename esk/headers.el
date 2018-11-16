@@ -118,7 +118,7 @@
   "    :Effort:   0:30\n"
   "    :END:\n")
 
-(define-skeleton esk/file-header:evolutiva
+(define-skeleton esk/file-header:evolutive
   "Intestazione per il planning delle evolutive."
   "Title: "
   "# -*- coding: utf-8 -*-\n"
@@ -127,7 +127,7 @@
   "#+CATEGORY:\n"
   "#+AUTHOR: " (user-full-name) " <" user-mail-address ">\n"
   "#+DATE: " (format-time-string "%x") "\n"
-  "#+SEQ_TODO: BUG(b) APPROFONDIRE(a) DAFARE(d) EVOLUTIVA(e) FIX(f) | CHIUSA(c) RESPINTA(r)\n"
+  "#+SEQ_TODO: APPROFONDIRE(a) BUG(b) EVOLUTIVA(e) | CHIUSA(c) RESPINTA(r)\n"
   "#+STARTUP: showall\n"
   "#+OPTIONS: H:4\n"
   "#+PROPERTY: Effort_ALL 1:00 2:00 3:00 4:00 5:00 6:00 7:00 1g 2g 3g 4g 5g 1s 2s 3s 4s\n"
