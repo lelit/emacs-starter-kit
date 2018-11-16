@@ -117,6 +117,9 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'esk/coding-hook #'turn-on-whitespace-cleanup-mode)
 (add-hook 'esk/coding-hook #'whitespace-turn-on)
 (add-hook 'esk/coding-hook #'esk/turn-on-subword-mode)
+(add-hook 'org-mode-hook #'turn-on-whitespace-cleanup-mode)
+;; this is not desiderable, as frequently there's collapsed stuff like org links...
+;;(add-hook 'org-mode-hook #'whitespace-turn-on)
 
 (defun esk/run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
