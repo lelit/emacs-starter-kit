@@ -1006,12 +1006,12 @@ See `imenu-create-index-function' for more information."
      `(block-start  ;; general-purpose block start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
          "[Ff]riend\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Ss]tatic\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ss]ub\\|"
          "[Ff]unction\\|"
          "[Ss]tructure\\|"
@@ -1055,11 +1055,11 @@ See `imenu-create-index-function' for more information."
      `(intf-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
          "[Pp]rivate\\(?: [Ss]hared\\)?\\|"
          "[Ff]riend\\(?: [Ss]hared\\)?\\|"
          "[Ss]tatic\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ii]nterface\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of interface
@@ -1071,12 +1071,12 @@ See `imenu-create-index-function' for more information."
      `(func-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
          "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
          "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
          "[Ff]riend\\(?: [Ss]hared\\)?\\|"
          "[Ss]tatic\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ff]unction\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of func
@@ -1088,12 +1088,12 @@ See `imenu-create-index-function' for more information."
      `(sub-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
          "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
          "[Ss]tatic\\|"
          "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
          "[Ff]riend\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ss]ub\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of sub
@@ -1105,9 +1105,9 @@ See `imenu-create-index-function' for more information."
      `(prop-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?[ \t]+\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?[ \t]+\\|"
-         "\\)"                                   ;; no qualifier at all
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
+         "[Pp]rivate\\(?: [Ss]hared\\)?\\)"
+         "[ \t]+\\)?"
          "\\([Pp]roperty\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of prop
@@ -1118,12 +1118,11 @@ See `imenu-create-index-function' for more information."
      `(class-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\([Pp]ublic\\b\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
+         "\\(?: \\([Pp]ublic\\b\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Pp]rivate\\b\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Ss]tatic\\b\\|"
-         "[Pp]artial\\b\\|"
-         "\\)"
-         "[ \t]*"
+         "[Pp]artial\\b\\)"
+         "[ \t]+\\)?"
          "\\([Cc]lass\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of class
@@ -1134,11 +1133,11 @@ See `imenu-create-index-function' for more information."
      `(struct-start
        ,(concat
          "^[ \t]*"
-         "\\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
+         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Pp]rivate\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Ff]riend\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
          "[Ss]tatic\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ss]tructure\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of struct
@@ -1149,10 +1148,10 @@ See `imenu-create-index-function' for more information."
      `(enum-start
        ,(concat
          "^[ \t]*"
-         "\\([Pp]ublic\\|"
+         "\\(?: \\([Pp]ublic\\|"
          "[Pp]rivate\\|"
          "[Ff]riend\\)"
-         "[ \t]+"
+         "[ \t]+\\)?"
          "\\([Ee]num\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of enum
