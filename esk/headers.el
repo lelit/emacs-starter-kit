@@ -86,8 +86,7 @@
   "#+LATEX_HEADER: \\usepackage[italian]{babel}\n"
   "#+LATEX_HEADER: \\usepackage[margin=2.5cm]{geometry}\n"
   "#+LATEX_HEADER_EXTRA: \\setlength{\\parindent}{0pt}\n"
-  "# Local IspellDict: italiano\n\n"
-  "* " str "\n")
+  "# Local IspellDict: italiano\n\n")
 
 (define-skeleton esk/file-header:preventivo
   "Intestazione per i preventivi ORG."
