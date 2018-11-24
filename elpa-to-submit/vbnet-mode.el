@@ -799,8 +799,8 @@ alist. Leaves point after the \"End Namespace\", if it exists."
               ;; there may be multiple children; add them all
               (if child-menu
                   (mapc
-                   #'(lambda (item)
-                       (push item submenu))
+                   (lambda (item)
+                     (push item submenu))
                    child-menu))
               (setq suppress-next t)))))
 
@@ -2557,26 +2557,26 @@ Next $1
             ;; Insert the snippets from above into the table if they
             ;; are not already defined.
             (mapcar
-             '(lambda (item)
-                (let* ((full-key (car item))
-                       (existing-snip
-                        (yas/snippet-table-fetch snippet-table full-key)))
-                  (if (not existing-snip)
-                      (let* ((key (file-name-sans-extension full-key))
-                             (name (caddr item))
-                             (condition (nth 3 item))
-                             (template (yas/make-template (cadr item)
-                                                          (or name key)
-                                                          condition)))
-                        (yas/snippet-table-store snippet-table
-                                                 full-key
-                                                 key
-                                                 template)
-                        (when yas/use-menu
-                          (define-key keymap (vector (make-symbol full-key))
-                            `(menu-item ,(yas/template-name template)
-                                        ,(yas/make-menu-binding (yas/template-content template))
-                                        :keys ,(concat key yas/trigger-symbol))))))))
+             (lambda (item)
+               (let* ((full-key (car item))
+                      (existing-snip
+                       (yas/snippet-table-fetch snippet-table full-key)))
+                 (if (not existing-snip)
+                     (let* ((key (file-name-sans-extension full-key))
+                            (name (caddr item))
+                            (condition (nth 3 item))
+                            (template (yas/make-template (cadr item)
+                                                         (or name key)
+                                                         condition)))
+                       (yas/snippet-table-store snippet-table
+                                                full-key
+                                                key
+                                                template)
+                       (when yas/use-menu
+                         (define-key keymap (vector (make-symbol full-key))
+                           `(menu-item ,(yas/template-name template)
+                                       ,(yas/make-menu-binding (yas/template-content template))
+                                       :keys ,(concat key yas/trigger-symbol))))))))
              builtin-snips)))))
 
 
