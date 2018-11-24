@@ -1342,7 +1342,7 @@ fast enough.
       "Picture" "Pmt" "Print" "Printer" "Printers" "Private" "ProjectTemplate"
       "Property"
       "Properties" "Protected" "Public" "Put" "QBColor" "QueryDef" "QueryDefs"
-      "RSet" "RTrim" "Randomize" "Rate" "ReDim" "Recordset" "Recordsets"
+      "RSet" "RTrim" "Randomize" "Rate" "ReadOnly" "ReDim" "Recordset" "Recordsets"
       "RegisterDatabase" "Relation" "Relations" "Rem" "RepairDatabase"
       "Reset" "Resume" "Return" "Right" "RmDir" "Rnd" "Rollback" "RowBuffer"
       "SLN" "SYD" "SavePicture" "SaveSetting" "Screen" "Second" "Seek"
