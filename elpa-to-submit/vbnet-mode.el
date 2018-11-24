@@ -411,6 +411,13 @@
 ;;      if statements (but I did not understand the meaning of the related
 ;;      "known bugs" entry below...)
 ;;
+;; 1.6b Lele changes November 2018
+;;
+;;      Added "readonly" keyword.
+;;
+;;      Drastically simplified symbol's "qualifiers": instead of hardwiring exact
+;;      combinations, just accept any combination of them.
+;;
 
 
 ;; Notes by Dave Love
@@ -993,9 +1000,40 @@ See `imenu-create-index-function' for more information."
 ;;   "^[ \t]*#?[Ii]f[ \t]+.*[ \t]+[Tt]hen[ \t]*.*\\('\\|$\\)")
 
 
-
 ;; alist of regexps for various structures in a vbnet file.
 (eval-and-compile
+  (defconst vbnet-qualifiers-regexp
+    (concat
+     "\\(?:"
+     (regexp-opt
+      '(
+        "friend" "Friend"
+        "notinheritable" "notInheritable" "Notinheritable" "NotInheritable"
+        "private" "Private"
+        "protected" "Protected"
+        "public" "Public"
+        "readonly" "readOnly" "Readonly" "ReadOnly"
+        "shared" "Shared"
+        "static" "Static"
+        )
+      nil)
+     "[ \t]+\\)*"))
+
+  (defconst vbnet-blocky-thing-regexp
+    (regexp-opt
+     '(
+       "class" "Class"
+       "enum" "Enum"
+       "function" "Function"
+       "interface" "Interface"
+       "module" "Module"
+       "property" "Property"
+       "structure" "Structure"
+       "sub" "Sub"
+       "type" "Type"
+       )
+     t))
+
   (defconst vbnet-regexp-alist
     (list
 
@@ -1006,21 +1044,8 @@ See `imenu-create-index-function' for more information."
      `(block-start  ;; general-purpose block start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
-         "[Ff]riend\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Ss]tatic\\)"
-         "[ \t]+\\)?"
-         "\\([Ss]ub\\|"
-         "[Ff]unction\\|"
-         "[Ss]tructure\\|"
-         "[Pp]roperty\\|"
-         "[Ii]nterface\\|"
-         "[Tt]ype\\|"
-         "[Ee]num\\|"
-         "[Cc]lass\\|"
-         "[Mm]odule\\)"
+         vbnet-qualifiers-regexp
+         vbnet-blocky-thing-regexp
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of thing
          "[ \t]*"
@@ -1029,37 +1054,18 @@ See `imenu-create-index-function' for more information."
      `(block-end
        ,(concat
          "^[ \t]*[Ee]nd "
-         "\\("
-         "[Ss]ub\\|"
-         "[Ff]unction\\|"
-         "[Ss]tructure\\|"
-         "[Pp]roperty\\|"
-         "[Ii]nterface\\|"
-         "[Tt]ype\\|"
-         "[Ee]num\\|"
-         "[Cc]lass\\|"
-         "[Mm]odule\\)"))
+         vbnet-blocky-thing-regexp))
 
      `(block-flavor
        ,(concat
-         "\\b\\("
-         "[Ss]ub\\|"
-         "[Ff]unction\\|"
-         "[Pp]roperty\\|"
-         "[Ii]nterface\\|"
-         "[Tt]ype\\|"
-         "[Ee]num\\|"
-         "[Cc]lass\\|"
-         "[Mm]odule\\)\\b"))
+         "\\b"
+         vbnet-blocky-thing-regexp
+         "\\b"))
 
      `(intf-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?\\|"
-         "[Ff]riend\\(?: [Ss]hared\\)?\\|"
-         "[Ss]tatic\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Ii]nterface\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of interface
@@ -1071,12 +1077,7 @@ See `imenu-create-index-function' for more information."
      `(func-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
-         "[Ff]riend\\(?: [Ss]hared\\)?\\|"
-         "[Ss]tatic\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Ff]unction\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of func
@@ -1088,12 +1089,7 @@ See `imenu-create-index-function' for more information."
      `(sub-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Pp]rotected\\)?\\(?: [Ss]hared\\)?\\|"
-         "[Ss]tatic\\|"
-         "[Pp]rotected\\(?: [Ff]riend\\)?\\|"
-         "[Ff]riend\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Ss]ub\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of sub
@@ -1105,9 +1101,7 @@ See `imenu-create-index-function' for more information."
      `(prop-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Pp]roperty\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of prop
@@ -1118,11 +1112,7 @@ See `imenu-create-index-function' for more information."
      `(class-start
        ,(concat
          "^[ \t]*" ;; leading whitespace
-         "\\(?: \\([Pp]ublic\\b\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Pp]rivate\\b\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Ss]tatic\\b\\|"
-         "[Pp]artial\\b\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Cc]lass\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of class
@@ -1133,11 +1123,7 @@ See `imenu-create-index-function' for more information."
      `(struct-start
        ,(concat
          "^[ \t]*"
-         "\\(?: \\([Pp]ublic\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Pp]rivate\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Ff]riend\\(?: [Ss]hared\\)?\\(?: [Nn]ot[Ii]nheritable\\)?\\|"
-         "[Ss]tatic\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Ss]tructure\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of struct
@@ -1148,10 +1134,7 @@ See `imenu-create-index-function' for more information."
      `(enum-start
        ,(concat
          "^[ \t]*"
-         "\\(?: \\([Pp]ublic\\|"
-         "[Pp]rivate\\|"
-         "[Ff]riend\\)"
-         "[ \t]+\\)?"
+         vbnet-qualifiers-regexp
          "\\([Ee]num\\)"
          "[ \t]+"
          "\\([^ \t\(\n]+\\)" ;; name of enum
@@ -1231,7 +1214,7 @@ See `imenu-create-index-function' for more information."
 
      `(field         ;; Public foo As Integer
        ,(concat
-         "\\(?:[Pp]ublic\\|[Pp]rivate\\|[Ff]riend\\)"
+         vbnet-qualifiers-regexp
          "[ \t]+"                            ;; ws
          "\\([^- \t\(]+\\)"                  ;; name of field
          "[ \t]+"                            ;; ws
