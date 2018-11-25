@@ -1009,6 +1009,9 @@ See `imenu-create-index-function' for more information."
       '(
         "friend" "Friend"
         "notinheritable" "notInheritable" "Notinheritable" "NotInheritable"
+        "overloads" "Overloads"
+        "overrides" "Overrrides"
+        "partial" "Partial"
         "private" "Private"
         "protected" "Protected"
         "public" "Public"
@@ -1345,6 +1348,7 @@ fast enough.
       "NotInheritable" "Shared" "OrElse"
       "Overridable" "WithEvents" "Finally" "Imports" "Compare" "Handles"
       "Of" "Module"
+      "Overloads" "Overrides"
       )))
 
 (defvar vbnet-namespace-face 'vbnet-namespace-face)
