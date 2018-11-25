@@ -1156,9 +1156,10 @@ See `imenu-create-index-function' for more information."
 
      '(namespace-end   "^[ \t]*[Ee]nd[ \t]+[Nn]amespace\\b")
 
+     ;; multi line variant
      '(if              "^[ \t]*#?\\([Ii]f\\)[ \t]+.*[ \t_]+")
      ;; single line variant
-     '(ifthen          "^[ \t]*#?\\([Ii]f\\)\\b.+\\<[Tt]hen\\>\\s-\\S-+")
+     '(ifthen          "^[ \t]*#?\\([Ii]f\\)\\b.+\\<[Tt]hen\\>")
      '(else            "^[ \t]*#?[Ee]lse\\([Ii]f\\)?")
      '(endif           "[ \t]*#?[Ee]nd[ \t]*[Ii]f")
      '(end-of-attr-and-continuation    "^.*>[ \t]+_[ \t]*$")
@@ -2002,8 +2003,6 @@ See also `vbnet-indent-line'."
     (forward-line 1)))
 
 
-
-
 (defun vbnet--back-to-start-of-continued-statement (&optional dont-backup-over-attributes)
   "If the current line is a continuation, move back to the original statement.
 
@@ -2031,9 +2030,9 @@ handle nested blocks."
       (vbnet--back-to-start-of-continued-statement t) ;; don't backup over attributes!
       (cond ((looking-at close-regexp)
              (setq level (+ level 1)))
-            ((looking-at open-regexp)
+            ((and (looking-at open-regexp)
+                  (not (vbnet--single-line-if-p)))
              (setq level (- level 1)))))))
-
 
 
 (defun vbnet--get-indent-column-for-continued-line (original-point)
@@ -2087,6 +2086,15 @@ Indent continuation lines according to some rules.
              (while (looking-at "[ \t]")
                (forward-char 1))
              (current-column))))))))
+
+
+(defun vbnet--single-line-if-p ()
+  "Determine if we are looking at a single line if statement."
+  (if (looking-at (vbnet-regexp 'ifthen))
+      (save-excursion
+        (goto-char (match-end 0))
+        (not (or (looking-at "\\s-*$")
+                 (looking-at "\\s-*\\s<"))))))
 
 
 
@@ -2261,7 +2269,7 @@ Indent continuation lines according to some rules.
               (+ indent vbnet-mode-indent))
 
              ((or (and (looking-at (vbnet-regexp 'if))
-                       (not (looking-at (vbnet-regexp 'ifthen))))
+                       (not (vbnet--single-line-if-p)))
                   (looking-at (vbnet-regexp 'else)))
               (+ indent vbnet-mode-indent))
 
