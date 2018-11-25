@@ -927,7 +927,7 @@ See `imenu-create-index-function' for more information."
 (if vbnet-mode-syntax-table
     ()
   (setq vbnet-mode-syntax-table (make-syntax-table))
-  (modify-syntax-entry ?\' "\<" vbnet-mode-syntax-table) ; Comment starter
+  (modify-syntax-entry ?\' "<" vbnet-mode-syntax-table) ; Comment starter
   (modify-syntax-entry ?\n ">" vbnet-mode-syntax-table)
   (modify-syntax-entry ?\\ "w" vbnet-mode-syntax-table)
   (modify-syntax-entry ?\= "." vbnet-mode-syntax-table)
@@ -3041,34 +3041,25 @@ Here's a summary of the key bindings:
         (add-hook 'pre-abbrev-expand-hook 'vbnet-pre-abbrev-expand-hook)
         (abbrev-mode 1)))
 
-  (make-local-variable 'comment-start)
-  (setq comment-start "' ")
-  (make-local-variable 'comment-start-skip)
-  (setq comment-start-skip "'+ *")
-  (make-local-variable 'comment-column)
-  (setq comment-column 40)
-  (make-local-variable 'comment-end)
-  (setq comment-end "")
+  (setq-local comment-start "'")
+  (setq-local comment-start-skip "'+ *")
+  (setq-local comment-column 40)
+  (setq-local comment-end "")
 
-  (make-local-variable 'indent-line-function)
-  (setq indent-line-function 'vbnet-indent-line)
+  (setq-local indent-line-function 'vbnet-indent-line)
 
   ;; These vars are defined in lisp.el - not sure if
   ;; this is helpful. See the documentation on
   ;; `vbnet-moveto-beginning-of-defun' for why.
-  (set (make-local-variable 'beginning-of-defun-function)
-       'vbnet-moveto-beginning-of-defun)
-
-  (set (make-local-variable 'end-of-defun-function)
-       'vbnet-moveto-end-of-defun)
+  (setq-local beginning-of-defun-function #'vbnet-moveto-beginning-of-defun)
+  (setq-local end-of-defun-function #'vbnet-moveto-end-of-defun)
 
   ;;(make-local-variable 'vbnet-associated-files)
   ;; doing this here means we need not check to see if it is bound later.
-  (add-hook 'find-file-hook 'vbnet-load-associated-files)
+  (add-hook 'find-file-hook #'vbnet-load-associated-files)
 
   ;; compile
-  (local-set-key "\C-x\C-e"  'vbnet-invoke-compile-interactively)
-
+  (local-set-key "\C-x\C-e"  #'vbnet-invoke-compile-interactively)
 
   (run-hooks 'vbnet-mode-hook)
 
@@ -3090,7 +3081,7 @@ Here's a summary of the key bindings:
 
   ;; fontification
   (if vbnet-want-fontification
-    (set (make-local-variable 'font-lock-keywords) vbnet-font-lock-keywords))
+      (setq-local font-lock-keywords vbnet-font-lock-keywords))
 
   ;; yasnippet
   (eval-after-load "yasnippet"
@@ -3101,10 +3092,7 @@ Here's a summary of the key bindings:
   (eval-after-load "flymake"
     '(progn
        (if vbnet-want-flymake-fixup
-           (vbnet-flymake-install))))
-
-
-  )
+           (vbnet-flymake-install)))))
 
 
 (provide 'vbnet-mode)
