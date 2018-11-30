@@ -42,6 +42,8 @@
      ;; These are common associations in PatchDB context
      (add-to-list 'projectile-other-file-alist '("sql" "rst" "py"))
      (add-to-list 'projectile-other-file-alist '("rst" "sql" "py"))
+     (add-to-list 'projectile-other-file-alist '("ascx" "ascx.vb"))
+     (add-to-list 'projectile-other-file-alist '("aspx" "aspx.vb"))
      ;; And this is for javascripthon
      (add-to-list 'projectile-other-file-alist '("pj" "js" "py"))))
 
