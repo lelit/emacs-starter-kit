@@ -306,7 +306,7 @@
 ;;     all the defconst regexps into an alist for simpler access.
 ;;
 ;;     Added "Namespace" as a keyword, and added a regexp and fn for
-;;     handling namespace statements.  Also modified `vbnet-calculate-indent'
+;;     handling namespace statements.  Also modified `vbnet--calculate-indent'
 ;;     to properly handle namespaces and their children.
 ;;
 ;;     Enhanced the logic for fontifying, with changes to
@@ -415,8 +415,10 @@
 ;;
 ;;      Added "readonly" keyword.
 ;;
-;;      Drastically simplified symbol's "qualifiers": instead of hardwiring exact
-;;      combinations, just accept any combination of them.
+;;      Drastically simplified symbol's "qualifiers": instead of hardwiring
+;;      exact combinations, just accept any combination of them.
+;;
+;;      Properly indent parenthized expressions.
 ;;
 
 
@@ -2098,7 +2100,7 @@ Indent continuation lines according to some rules.
 
 
 
-(defun vbnet-calculate-indent ()
+(defun vbnet--calculate-indent ()
   "Calculate the indentation for the current point in a vb.net buffer."
   (let ((original-point (point)))
     (save-excursion
@@ -2294,9 +2296,7 @@ Indent continuation lines according to some rules.
               indent))))))))))
 
 
-
-
-(defun vbnet-indent-to-column (col)
+(defun vbnet--indent-to-column (col)
   (let* ((bol (save-excursion
                 (beginning-of-line)
                 (point)))
@@ -2327,8 +2327,20 @@ This assumes that the previous non-blank line is indented properly.
 
 See also `vbnet-indent-region'."
   (interactive)
-  (vbnet-indent-to-column (vbnet-calculate-indent)))
-
+  (let* ((ps (save-excursion (syntax-ppss (point-at-bol))))
+         (offset (if (nth 1 ps)
+                     (let ((same-indent-p (looking-at "[])}]")))
+                       (save-excursion
+                         (goto-char (nth 1 ps))
+                         ;; If there is something following the opening
+                         ;; paren/bracket, everything else should be indented at
+                         ;; the same level.
+                         (unless same-indent-p
+                           (forward-char)
+                           (skip-chars-forward " \t"))
+                         (current-column)))
+                   (vbnet--calculate-indent))))
+    (vbnet--indent-to-column offset)))
 
 
 ;; ========================================================================
