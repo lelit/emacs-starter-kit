@@ -48,21 +48,7 @@
 
   (let ((dir (ido-read-directory-name "Virtual desktop: ")))
     (esk/virtualenv-activate dir)
-    (esk/csetq desktop-base-file-name "emacs.desktop")
-    (esk/csetq desktop-dirname dir)
-    (esk/csetq desktop-save t)
-    (esk/csetq desktop-save-mode t)
-    (unless (desktop-read dir)
-      (dired dir))
-    (esk/csetq server-name (md5 dir)))
-
-  ;; Activate the Emacs server
-  (server-start)
-
-  ;; Activate projectile)
-  (require 'projectile)
-  (projectile-mode)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+    (dired dir)))
 
 (defun esk/python-region-as-new-variable ()
   "Create a new variable, just before current statement, initialized to current region."

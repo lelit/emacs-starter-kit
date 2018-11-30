@@ -2,8 +2,7 @@
 ;;
 
 (eval-when-compile
-  (require 'compile)
-  (require 'desktop))
+  (require 'compile))
 
 (require 'imenu)
 (require 'thingatpt)

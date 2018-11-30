@@ -35,6 +35,8 @@
 
 ;; projectile
 
+(require 'projectile)
+
 (eval-after-load 'projectile
   '(progn
      ;; These are common associations in PatchDB context
@@ -46,6 +48,9 @@
 (defun lele/projectile-mode-line ()
   "Report project name in the modeline."
   (format "%s[%s]" projectile-mode-line-prefix (projectile-project-name)))
+
+(projectile-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 
 ;; google-translate
@@ -83,6 +88,9 @@ start everything unconditionally."
   (if (or dont-ask (y-or-n-p "GNUS? ")) (gnus))
   (if (or dont-ask (y-or-n-p "IRC? ")) (esk/start-erc-session))
   (if (or dont-ask (y-or-n-p "Elfeed? ")) (elfeed))
+
+  ;; Activate the Emacs server
+  (server-start)
 
   (message "Have a nice day!"))
 
