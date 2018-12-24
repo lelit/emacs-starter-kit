@@ -11,6 +11,7 @@
 (push 'notmuch esk/packages)
 (push 'notmuch-labeler esk/packages)
 (push 'org-bullets esk/packages)
+(push 'pip-requirements esk/packages)
 (push 'rainbow-mode esk/packages)
 (push 's esk/packages)
 (push 'treemacs esk/packages)
