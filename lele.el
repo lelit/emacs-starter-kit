@@ -133,7 +133,6 @@ start everything unconditionally."
      "daneel\\.arstecnica\\.it:"
      "\\*notmuch-saved-search-unread\\*"))
  '(ispell-dictionary "american")
- '(jedi:server-command '("/usr/local/bin/jediepcserver"))
  '(js2-strict-trailing-comma-warning t)
  '(longlines-show-hard-newlines t)
  '(magit-delete-by-moving-to-trash nil)

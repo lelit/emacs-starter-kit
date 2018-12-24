@@ -11,6 +11,7 @@
 .yas-compiled-snippets.el
 /.byte-compile-timestamp
 /.cache/
+/.python-environments/
 /ac-comphist.dat
 /auto-save-list/
 /backups/

@@ -127,9 +127,12 @@
      ;; Activate pdbtrack in M-x shell buffers
      (add-hook 'comint-output-filter-functions #'python-pdbtrack-comint-output-filter-function)
 
+     (require 'python-environment)
      (require 'company-jedi)
 
      (add-to-list 'company-backends 'company-jedi)
+
+     (esk/csetq python-environment-virtualenv (list "python3" "-m" "venv"))
 
      (define-key python-mode-map [C-return] #'esk/python-split-string)
      (define-key python-mode-map (kbd "C-c +") #'esk/python-add-symbol-to-__all__)
