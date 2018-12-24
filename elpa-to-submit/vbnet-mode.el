@@ -420,6 +420,10 @@
 ;;
 ;;      Properly indent parenthized expressions.
 ;;
+;; 1.6c Lele changes December 2018
+;;
+;;      Better indent machinery for parenthized expressions.
+;;
 
 
 ;; Notes by Dave Love
@@ -682,9 +686,6 @@ anything after the marker string as the command to run."
     ad-do-it))
 
 
-
-
-
 (defun vbnet--imenu-create-index-function-helper (&optional parent-ns indent-level)
   "Helper fn for `vbnet-imenu-create-index-function-real'.
 
@@ -737,7 +738,6 @@ alist. Leaves point after the \"End Namespace\", if it exists."
   ;; 6. if not popping out, go to the next line in the buffer, and
   ;;    resume at step 1.
   ;;
-
 
   (if (not indent-level) (setq indent-level ""))
 
@@ -871,9 +871,6 @@ alist. Leaves point after the \"End Namespace\", if it exists."
     (nreverse menu-structure)))
 
 
-
-
-
 (defun vbnet-imenu-create-index-function ()
   "a function called by imenu to create an index for the current
 VB.NET buffer, conforming to the format specified in
@@ -921,8 +918,6 @@ See `imenu-create-index-function' for more information."
 
 
 ;; ==================================================================
-
-
 
 
 (defvar vbnet-mode-syntax-table nil)
@@ -1627,17 +1622,17 @@ don't do that."
       (let (found
             eol)
 
-        ;; steo 1
+        ;; step 1
         (vbnet-previous-line-of-code)
 
-        ;; steo 2
+        ;; step 2
         (if (bobp) (setq done t)
 
           (setq eol (save-excursion
                       (end-of-line)
                       (point)))
 
-          ;; steo 3: check for end-blocks, incf nesting counts as necessary
+          ;; step 3: check for end-blocks, incf nesting counts as necessary
           (dolist (tuple block-regex-tuples)
             (if (not found)
                 (if (re-search-forward (vbnet-regexp (cadr tuple)) eol t)
@@ -1646,7 +1641,7 @@ don't do that."
                       (setq found t)))))
 
 
-          ;; steo 4: check for begin-blocks, checking the nesting count
+          ;; step 4: check for begin-blocks, checking the nesting count
           (if (not found)
               (dolist (tuple block-regex-tuples)
                 (if (not found)
@@ -1678,6 +1673,137 @@ don't do that."
           (move-end-of-line 1)
           (just-one-space 0)
           ))))
+
+
+;; Derived from python.el
+
+(eval-and-compile
+  (defun vbnet-syntax--context-compiler-macro (form type &optional syntax-ppss)
+    (pcase type
+      (''comment
+       `(let ((ppss (or ,syntax-ppss (syntax-ppss))))
+          (and (nth 4 ppss) (nth 8 ppss))))
+      (''string
+       `(let ((ppss (or ,syntax-ppss (syntax-ppss))))
+          (and (nth 3 ppss) (nth 8 ppss))))
+      (''paren
+       `(nth 1 (or ,syntax-ppss (syntax-ppss))))
+      (_ form))))
+
+(defun vbnet--syntax-context (type &optional syntax-ppss)
+  "Return non-nil if point is on TYPE using SYNTAX-PPSS.
+TYPE can be `comment', `string' or `paren'.  It returns the start
+character address of the specified TYPE."
+  (declare (compiler-macro vbnet-syntax--context-compiler-macro))
+  (let ((ppss (or syntax-ppss (syntax-ppss))))
+    (pcase type
+      ('comment (and (nth 4 ppss) (nth 8 ppss)))
+      ('string (and (nth 3 ppss) (nth 8 ppss)))
+      ('paren (nth 1 ppss))
+      (_ nil))))
+
+(defun vbnet--backward-statement (&optional arg)
+  "Move backward to previous statement.
+With ARG, repeat.  See `vbnet-nav-forward-statement'."
+  (interactive "^p")
+  (or arg (setq arg 1))
+  (vbnet--forward-statement (- arg)))
+
+(defun vbnet--forward-statement (&optional arg)
+  "Move forward to next statement.
+With ARG, repeat.  With negative argument, move ARG times
+backward to previous statement."
+  (interactive "^p")
+  (or arg (setq arg 1))
+  (while (> arg 0)
+    (vbnet--end-of-statement)
+    (vbnet--forward-comment)
+    (vbnet--beginning-of-statement)
+    (setq arg (1- arg)))
+  (while (< arg 0)
+    (vbnet--beginning-of-statement)
+    (vbnet--forward-comment -1)
+    (vbnet--beginning-of-statement)
+    (setq arg (1+ arg))))
+
+(defun vbnet--beginning-of-statement ()
+  "Move to start of current statement."
+  (interactive "^")
+  (forward-line 0)
+  (let* ((ppss (syntax-ppss))
+         (context-point
+          (or
+           (vbnet--syntax-context 'paren ppss)
+           (vbnet--syntax-context 'string ppss))))
+    (cond ((bobp))
+          (context-point
+           (goto-char context-point)
+           (vbnet--beginning-of-statement))
+          ((save-excursion
+             (forward-line -1)
+             (looking-at ".+ _$"))
+           (forward-line -1)
+           (vbnet--beginning-of-statement))))
+  (back-to-indentation)
+  (point-marker))
+
+(defun vbnet--end-of-statement (&optional noend)
+  "Move to end of current statement.
+Optional argument NOEND is internal and makes the logic to not
+jump to the end of line when moving forward searching for the end
+of the statement."
+  (interactive "^")
+  (let (string-start bs-pos (last-string-end 0))
+    (while (and (or noend (goto-char (line-end-position)))
+                (not (eobp))
+                (cond ((setq string-start (vbnet--syntax-context 'string))
+                       ;; The assertion can only fail if syntax table
+                       ;; text properties and the `syntax-ppss' cache
+                       ;; are somehow out of whack.  This has been
+                       ;; observed when using `syntax-ppss' during
+                       ;; narrowing.
+                       (cl-assert (>= string-start last-string-end)
+                                  :show-args
+                                  "\
+Overlapping strings detected (start=%d, last-end=%d)")
+                       (goto-char string-start)
+                       (if (vbnet--syntax-context 'paren)
+                           ;; Ended up inside a paren, roll again.
+                           (vbnet-nav-end-of-statement t)
+                         ;; This is not inside a paren, move to the
+                         ;; end of this string.
+                         (goto-char (1+ (point)))
+                         (setq last-string-end (vbnet--end-of-string))))
+                      ((vbnet--syntax-context 'paren)
+                       ;; The statement won't end before we've escaped
+                       ;; at least one level of parenthesis.
+                       (condition-case err
+                           (goto-char (scan-lists (point) 1 -1))
+                         (scan-error (goto-char (nth 3 err)))))
+                      ((looking-at ".+ _$")
+                       (forward-line 1))))))
+  (point-marker))
+
+(defun vbnet--forward-comment (&optional direction)
+  "Mode specific version of `forward-comment'.
+Optional argument DIRECTION defines the direction to move to."
+  (let ((comment-start (vbnet--syntax-context 'comment))
+        (factor (if (< (or direction 0) 0)
+                    -99999
+                  99999)))
+    (when comment-start
+      (goto-char comment-start))
+    (forward-comment factor)))
+
+(defun vbnet--end-of-string ()
+  (let ((eos (re-search-forward "\"" nil t)) found)
+    (while (and eos (not found))
+      (forward-char -1)
+      (if (not (looking-at "\"\""))
+          (setq found t)
+        (forward-char 2)
+        (setq eos (re-search-forward "\"" nil t))))
+    (or eos (point-max))))
 
 
 (defun vbnet--moveto-boundary-of-defun (goto-top)
@@ -1738,7 +1864,6 @@ does not move point."
           (goto-char orig-point)))
 
     found))
-
 
 
 (defun vbnet-moveto-beginning-of-defun ()
@@ -2028,13 +2153,14 @@ DONT-BACKUP-OVER-ATTRIBUTES, is t."
 handle nested blocks."
   (let ((level 0))
     (while (and (>= level 0) (not (bobp)))
-      (vbnet-previous-line-of-code)
-      (vbnet--back-to-start-of-continued-statement t) ;; don't backup over attributes!
+      (vbnet--backward-statement)
+      (beginning-of-line)
       (cond ((looking-at close-regexp)
              (setq level (+ level 1)))
             ((and (looking-at open-regexp)
                   (not (vbnet--single-line-if-p)))
-             (setq level (- level 1)))))))
+             (setq level (- level 1))))
+      (forward-to-indentation 0))))
 
 
 (defun vbnet--get-indent-column-for-continued-line (original-point)
@@ -2237,7 +2363,7 @@ Indent continuation lines according to some rules.
 
        (t
         ;; Other cases which depend on the previous line.
-        (vbnet-previous-line-of-code)
+        (vbnet--backward-statement)
 
         ;; Skip over label lines, which always have 0 indent.
         (while (looking-at (vbnet-regexp 'label))
@@ -2252,6 +2378,8 @@ Indent continuation lines according to some rules.
           (vbnet--back-to-start-of-continued-statement t) ;; why?
 
           (let ((indent (current-indentation)))
+            (beginning-of-line)
+
             ;; All the various +indent regexps.
             (cond
 
