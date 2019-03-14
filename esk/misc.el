@@ -116,6 +116,7 @@
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(xml\\|xsl\\|rng\\|zcml\\)\\'" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(ascx\\|aspx\\|html\\|jinja\\|jinja2\\|mako\\|pt\\|xhtml\\)\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("templates/.+\\.master\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.raml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("Makefile\\." . makefile-gmake-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
