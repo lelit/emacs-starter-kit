@@ -16,7 +16,7 @@
 ;; Copyright (C) 1998 Free Software Foundation, Inc.
 ;;   (additions by Dave Love and others)
 ;; Copyright (C) 2011 Dino Chiesa
-;; Copyright (C) 2018 Lele Gaifax
+;; Copyright (C) 2018, 2019 Lele Gaifax
 
 
 ;; This file is NOT part of GNU Emacs but the same permissions apply.
@@ -424,7 +424,10 @@
 ;;
 ;;      Better indent machinery for parenthized expressions.
 ;;
-
+;; 1.6d Lele changes March 2019
+;;
+;;      Handle "SELECT" statements without the optional "CASE" keyword
+;;
 
 ;; Notes by Dave Love
 ;; BTW, here's a script for making tags tables that I (Dave Love) have
@@ -1162,7 +1165,7 @@ See `imenu-create-index-function' for more information."
      '(end-of-attr-and-continuation    "^.*>[ \t]+_[ \t]*$")
      '(continuation    "^.* _[ \t]*$")
      '(label           "^[ \t]*[a-zA-Z0-9_]+:$")
-     '(select          "^[ \t]*\\([Ss]elect\\)[ \t]+[Cc]ase")
+     '(select          "^[ \t]*\\([Ss]elect\\)\\([ \t]+[Cc]ase\\)?")
      '(case            "^[ \t]*[Cc]ase")
      '(select-end      "^[ \t]*[Ee]nd[ \t]+[Ss]elect")
      '(for             "^[ \t]*[Ff]or\\b")
