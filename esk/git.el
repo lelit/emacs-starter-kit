@@ -37,7 +37,9 @@ Look up `pathspec' in the `git help glossary' for details.")
 (put 'esk/git-grep-exclusions 'safe-local-variable 'listp)
 
 (defun esk/git-grep (command)
-  "Use the `grep' machinery to run `git grep'.
+  "Use the `grep' machinery to run `git grep' on the word at point or
+the words in the active region.
+
 By default the search is executed only in the current Git repository,
 starting from its top level directory.
 
@@ -49,7 +51,9 @@ repository recursing down in all submodules.
 With an universal prefix argument equal to 0 the search starts from
 the current directory."
   (interactive
-   (let ((what (thing-at-point 'symbol t))
+   (let ((what (if (use-region-p)
+                   (buffer-substring-no-properties (region-beginning) (region-end))
+                 (thing-at-point 'symbol t)))
          (toplevel (if (= (prefix-numeric-value current-prefix-arg) 0)
                        default-directory
                      (esk/git-toplevel (= (prefix-numeric-value current-prefix-arg) 16))))
