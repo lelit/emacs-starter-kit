@@ -158,7 +158,7 @@
 (define-skeleton esk/file-header:jinja2
   "Standard Jinja2 file header."
   "Summary: "
-  "{# -*- coding: utf-8; mode: web -*-\n"
+  "{# -*- coding: utf-8 -*-\n"
   "## :Project:   " (esk/project-name) " -- " str "\n"
   "## :Created:   " (format-time-string "%c") "\n"
   "## :Author:    " (user-full-name) " <" user-mail-address ">\n"
