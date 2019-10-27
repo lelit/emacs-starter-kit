@@ -177,7 +177,7 @@
   comment-start `(delete-horizontal-space) " :Copyright: © " (format-time-string "%Y") " " (esk/project-copyright-holder) comment-end "\n"
   comment-start `(delete-horizontal-space) comment-end "\n\n")
 
-(add-to-list 'auto-insert-alist '(("\\.css\\'" . "CSS header") . esk/file-header))
+(add-to-list 'auto-insert-alist '(("\\.css\\'" . "CSS header") . esk/file-header:block))
 (add-to-list 'auto-insert-alist '(("\\.html\\'" . "HTML header") . esk/file-header:html))
 (add-to-list 'auto-insert-alist '(("\\.jinja2\\'" . "Jinja2 header") . esk/file-header:jinja2))
 (add-to-list 'auto-insert-alist '(("\\.js\\'" . "Javascript header") . esk/file-header))
