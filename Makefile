@@ -1,7 +1,7 @@
 # Simplify daily operations
 
 EMACS=emacs
-BATCH=$(EMACS) --batch -Q
+BATCH=$(EMACS) --batch -Q -f package-initialize
 EDIR=~/.emacs.d
 EMAX=$(BATCH) -l $(EDIR)/init.el
 ELPA=$(BATCH) -l $(EDIR)/esk/elpa.el$(if $(wildcard $(EDIR)/$(USER)/elpa.el), -l $(EDIR)/$(USER)/elpa.el,)
