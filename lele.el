@@ -144,6 +144,7 @@ start everything unconditionally."
  '(mm-text-html-renderer 'w3m)
  '(mode-line-percent-position '(-3 "%o"))
  '(notmuch-fcc-dirs "metapensiero/Sent")
+ '(notmuch-wash-wrap-lines-length 90)
  '(org-list-allow-alphabetical t)
  '(org-time-clocksum-format
    '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
