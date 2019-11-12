@@ -65,8 +65,12 @@
 (smartparens-global-mode)
 
 ;; ido-mode is like magic pixie dust!
+(setq ido-save-directory-list-file nil)
+(require 'ido-hacks)
+(ido-hacks-mode)
 (ido-mode t)
 (ido-everywhere 1)
+(esk/csetq ido-auto-merge-work-directories-length -1)
 (esk/csetq ido-enable-prefix nil)
 (esk/csetq ido-enable-flex-matching t)
 (esk/csetq ido-create-new-buffer 'always)
@@ -81,6 +85,14 @@
 ;; even more when coupled with flx
 (require 'flx-ido)
 (flx-ido-mode t)
+
+;; disable ido faces to see flx highlights.
+(esk/csetq ido-use-faces nil)
+(esk/csetq flx-ido-threshold 20000)
+
+(require 'ido-grid-mode)
+(ido-grid-mode 1)
+(setq ido-grid-mode-prefix-scrolls t)
 
 ;; Makefiles are an exception, TAB is mandatory at bol
 (add-hook 'makefile-mode-hook #'esk/turn-on-whitespace-mode-makefiles)

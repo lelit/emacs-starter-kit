@@ -19,6 +19,8 @@
    'erc-hl-nicks
    'expand-region
    'flx-ido
+   'ido-hacks
+   'ido-grid-mode
    'git-link
    'iedit
    'jedi-core
