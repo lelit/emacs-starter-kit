@@ -57,7 +57,9 @@
 
 ;; On your first run, this should pull in all the base packages.
 (when (esk/online?)
-  (unless package-archive-contents (package-refresh-contents))
+  (package-read-all-archive-contents)
+  (unless package-archive-contents
+    (package-refresh-contents))
   (esk/install-packages))
 
 
