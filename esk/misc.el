@@ -65,6 +65,7 @@
 (smartparens-global-mode)
 
 ;; ido-mode is like magic pixie dust!
+(put 'insert-char 'ido 'ignore)
 (setq ido-save-directory-list-file nil)
 (require 'ido-hacks)
 (ido-hacks-mode)
