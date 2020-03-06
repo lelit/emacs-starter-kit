@@ -5,9 +5,10 @@
 (require 'elfeed-goodies)
 
 (esk/csetq elfeed-feeds
-           '("http://planetpython.org/rss20.xml"
-             "http://planet.emacsen.org/atom.xml"
-             "https://planet.postgresql.org/rss20.xml"))
+           '("https://planetpython.org/rss20.xml"
+             "https://planet.emacslife.com/atom.xml"
+             "https://planet.postgresql.org/rss20.xml"
+             "https://nixos.org/blogs.xml"))
 
 (esk/csetq elfeed-goodies/entry-pane-position 'bottom)
 
