@@ -6,7 +6,7 @@
 ;;
 
 (esk/csetq gnus-select-method '(nntp "gmane"
-                                     (nntp-address "news.gmane.org")
+                                     (nntp-address "news.gmane.io")
                                      (nnir-search-engine nntp)))
 
 (esk/csetq gnus-posting-styles
