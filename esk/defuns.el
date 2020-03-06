@@ -113,10 +113,10 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'esk/coding-hook #'esk/local-comment-auto-fill)
 (add-hook 'esk/coding-hook #'esk/turn-on-hl-line-mode)
 (add-hook 'esk/coding-hook #'esk/add-watchwords)
-(add-hook 'esk/coding-hook #'turn-on-whitespace-cleanup-mode)
+(add-hook 'esk/coding-hook #'whitespace-cleanup-mode--maybe)
 (add-hook 'esk/coding-hook #'whitespace-turn-on)
 (add-hook 'esk/coding-hook #'esk/turn-on-subword-mode)
-(add-hook 'org-mode-hook #'turn-on-whitespace-cleanup-mode)
+(add-hook 'org-mode-hook #'whitespace-cleanup-mode--maybe)
 ;; this is not desiderable, as frequently there's collapsed stuff like org links...
 ;;(add-hook 'org-mode-hook #'whitespace-turn-on)
 
